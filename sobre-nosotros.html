@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sobre Nosotros — La Tuerta</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --white:#FFFFFF; --black:#04090C; --bordo:#590707; --rojo:#CE0000; --rojo-oscuro:#A30404;
+      --gris:#736D66; --beige:#CDC7BD;
+      --h-sans:"Inter Tight",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+      --body-serif:"Merriweather",Georgia,"Times New Roman",serif;
+
+      --container:1200px;
+      --gap:clamp(16px,2vw,28px);
+      --radius:16px;
+      --speed:260ms;
+      --hero-overlay:linear-gradient(180deg, rgba(0,0,0,.2) 0%, rgba(0,0,0,.65) 100%);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--black); background:var(--white);
+      font-family:var(--body-serif); line-height:1.6;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      opacity:0; transition:opacity 280ms ease; /* fade IN al cargar */
+    }
+    body.is-entered{ opacity:1 }
+
+    img{max-width:100%; display:block}
+
+    /* Header */
+    .site-header{
+      position:fixed; inset:0 0 auto 0; z-index:20; background:rgba(4,9,12,.0); color:#fff;
+      transition:background var(--speed) ease, box-shadow var(--speed) ease, padding var(--speed) ease;
+      padding:18px 20px;
+    }
+    .site-header.is-sticky{ background:rgba(4,9,12,.88); backdrop-filter:saturate(1.2) blur(6px); box-shadow:0 6px 18px rgba(0,0,0,.2); padding:10px 20px; }
+    .nav{ max-width:var(--container); margin:0 auto; display:flex; align-items:center; gap:20px; }
+    .brand{ font-family:var(--h-sans); font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:clamp(18px,2vw,22px); }
+    .brand a{ color:inherit; text-decoration:none }
+    .spacer{flex:1}
+    .menu{ display:flex; gap:22px; align-items:center }
+    .menu a{ color:inherit; text-decoration:none; font-family:var(--h-sans); font-weight:900; letter-spacing:.02em; text-transform:uppercase; font-size:12px; }
+    .menu a:hover{ opacity:.85 }
+
+    /* Page transition OUT overlay */
+    .page-exit-overlay{
+      position:fixed; inset:0; background:#04090C; pointer-events:none;
+      opacity:0; transition:opacity 260ms ease; z-index:200;
+    }
+    .is-exiting .page-exit-overlay{ opacity:1; }
+
+    /* Hero */
+    .hero{
+      min-height:60svh; position:relative; display:grid; place-items:end center; color:#fff; text-align:center;
+      padding: clamp(40px,8vw,80px) 20px;
+    }
+    .hero::before{
+      content:""; position:absolute; inset:0;
+      background:
+        var(--hero-overlay),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2400&auto=format&fit=crop") center/cover no-repeat;
+      z-index:-1;
+    }
+    .hero-inner{ max-width: var(--container); width:100%; margin:0 auto; }
+    .hero h1{
+      font-family:var(--h-sans); font-weight:900; text-transform:uppercase;
+      letter-spacing:.08em; line-height:.95; margin:0 0 .35em;
+      font-size:clamp(42px,6vw,92px);
+      text-shadow:0 12px 40px rgba(0,0,0,.45);
+    }
+    .hero p{
+      margin:0 auto clamp(14px,3vw,24px); color:#f2f2f2; max-width: 60ch; font-size:clamp(16px,2vw,20px);
+    }
+
+    /* Contenido base */
+    .section{ padding: clamp(28px,6vw,72px) 20px; }
+    .container{ max-width:var(--container); margin:0 auto }
+
+    /* Bloque misión */
+    .lead{
+      font-size:clamp(18px,2.2vw,22px); color:#2a2a2a; max-width:75ch;
+    }
+    .quote{
+      margin-top: clamp(16px,2vw,22px);
+      padding-left: 18px; border-left: 4px solid var(--rojo);
+      font-style: italic; color:#444;
+    }
+
+    /* Grid de equipo */
+    .team{
+      display:grid; gap:var(--gap);
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    @media (max-width:980px){ .team{ grid-template-columns: repeat(2,1fr) } }
+    @media (max-width:640px){ .team{ grid-template-columns: 1fr } }
+
+    .person{
+      background:#f8f8f8; border-radius: var(--radius); overflow:hidden;
+      transition: transform var(--speed) ease, box-shadow var(--speed) ease;
+    }
+    .person:hover{ transform: translateY(-4px); box-shadow: 0 16px 38px rgba(0,0,0,.12); }
+    .avatar{ aspect-ratio: 4/3; background:#ddd; overflow:hidden }
+    .avatar img{ width:100%; height:100%; object-fit:cover; filter:saturate(.95) contrast(1.02); transition: transform var(--speed) ease }
+    .person:hover .avatar img{ transform: scale(1.03) }
+    .bio{ padding:16px 16px 18px }
+    .role{ font-family:var(--h-sans); text-transform:uppercase; font-weight:900; font-size:12px; letter-spacing:.04em; opacity:.75 }
+    .name{ margin:6px 0 6px; font-family:var(--h-sans); font-weight:900; font-size: clamp(18px,2vw,22px); }
+    .desc{ color:#4a4a4a; font-size:15px }
+
+    /* Bloque qué hacemos (split) */
+    .split{
+      display:grid; gap:var(--gap);
+      grid-template-columns: 1.2fr 1fr; align-items:center;
+    }
+    @media (max-width:980px){ .split{ grid-template-columns: 1fr; } }
+    .split .visual{ border-radius: var(--radius); overflow:hidden; aspect-ratio: 16/10; background:#eee }
+    .split h2{ font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.06em; font-size:clamp(20px,2vw,28px); margin:0 0 10px }
+    .bullets{ margin:0; padding:0; list-style:none; display:grid; gap:10px }
+    .bullets li::before{ content:"— "; color:var(--rojo) }
+
+    /* CTA */
+    .cta-box{
+      background:#0e1114; color:#eaeaea; border-radius: var(--radius);
+      padding: clamp(20px,4vw,38px);
+      display:flex; gap: clamp(12px,2vw,24px); align-items:center; justify-content:space-between; flex-wrap:wrap;
+    }
+    .cta-box h3{ margin:0; font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.06em; }
+    .btn{
+      --btn-bg:transparent; --btn-fg:#fff; --btn-bd:#fff;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 18px; border-radius:999px; border:2px solid var(--btn-bd);
+      font-family:var(--h-sans); font-weight:900; letter-spacing:.04em; text-transform:uppercase;
+      text-decoration:none; color:var(--btn-fg); transition: all var(--speed) ease; font-size:12px;
+    }
+    .btn:hover{ transform:translateY(-2px) }
+    .btn-primary{ --btn-bg:var(--rojo); --btn-fg:#fff; --btn-bd:var(--rojo); background:var(--btn-bg); box-shadow:0 10px 28px rgba(206,0,0,.35) }
+
+    /* Footer */
+    .site-footer{ background:var(--black); color:#e9e9e9; padding:40px 20px; margin-top:40px; }
+    .site-footer .container{ display:flex; gap:20px; justify-content:space-between; align-items:center; flex-wrap:wrap }
+    .site-footer a{ color:#e9e9e9; text-decoration:none; opacity:.9 }
+    .site-footer a:hover{ opacity:1 }
+  </style>
+</head>
+<body>
+  <!-- Overlay de transición OUT -->
+  <div class="page-exit-overlay" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader" role="banner" aria-label="Cabecera del sitio">
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="brand"><a href="index.html" data-transition>LA TUERTA</a></div>
+      <div class="spacer"></div>
+      <div class="menu" role="menubar">
+        <a role="menuitem" href="index.html" data-transition>Home</a>
+        <a role="menuitem" href="index.html#edicion-actual" data-transition>Notas</a>
+        <a role="menuitem" aria-current="page" href="#" style="opacity:.65; pointer-events:none">Sobre nosotros</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-label="Sobre nosotros">
+    <div class="hero-inner">
+      <h1>Sobre Nosotros</h1>
+      <p>Somos un grupo de periodistas y amigxs que publican crónicas, entrevistas y ensayos con una mirada curada. La Tuerta es un lugar para leer despacio y mirar distinto.</p>
+    </div>
+  </section>
+
+  <!-- Misión -->
+  <section class="section">
+    <div class="container">
+      <p class="lead">
+        Nacimos de redacciones, pasillos y charlas de madrugada. Publicamos <strong>periodismo autoral</strong> con foco en cultura, música, política y ciudad. Editamos, acompañamos procesos y priorizamos la calidad por sobre la inmediatez.
+      </p>
+      <p class="quote">“Contar lo que pasa con una voz propia, y dejar que las imágenes respiren.”</p>
+    </div>
+  </section>
+
+  <!-- Equipo -->
+  <section class="section" aria-labelledby="equipoTitle">
+    <div class="container">
+      <h2 id="equipoTitle" style="font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.06em; font-size:clamp(20px,2vw,28px); margin:0 0 14px">Equipo</h2>
+      <div class="team">
+        <!-- Persona 1 -->
+        <article class="person">
+          <figure class="avatar">
+            <img src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?q=80&w=1600&auto=format&fit=crop" alt="Retrato periodística/o 1">
+          </figure>
+          <div class="bio">
+            <div class="role">Dirección editorial</div>
+            <h3 class="name">Luz Fernández</h3>
+            <p class="desc">Editora. Investiga y acompaña procesos de escritura larga. Cruza cultura y política con obsesión por el detalle.</p>
+          </div>
+        </article>
+
+        <!-- Persona 2 -->
+        <article class="person">
+          <figure class="avatar">
+            <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=1600&auto=format&fit=crop" alt="Retrato periodística/o 2">
+          </figure>
+          <div class="bio">
+            <div class="role">Crónicas</div>
+            <h3 class="name">Mateo Ríos</h3>
+            <p class="desc">Crónica y territorio. Le interesan los bordes de la ciudad, el ruido, lo que no sale en la agenda.</p>
+          </div>
+        </article>
+
+        <!-- Persona 3 -->
+        <article class="person">
+          <figure class="avatar">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1600&auto=format&fit=crop" alt="Retrato periodística/o 3">
+          </figure>
+          <div class="bio">
+            <div class="role">Entrevistas</div>
+            <h3 class="name">Sol Peretti</h3>
+            <p class="desc">Preguntas incómodas, respuestas precisas. Voces que empujan discusiones necesarias.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qué hacemos (split) -->
+  <section class="section">
+    <div class="container split">
+      <div class="visual">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2000&auto=format&fit=crop" alt="Mesa de trabajo, cuadernos y cámara">
+      </div>
+      <div>
+        <h2>Qué hacemos</h2>
+        <ul class="bullets">
+          <li>Publicamos crónicas, entrevistas y ensayos fotográficos.</li>
+          <li>Editamos textos con mirada autoral y enfoque curatorial.</li>
+          <li>Abrimos convocatorias y trabajamos con noteros/as colaboradores/as.</li>
+          <li>Priorizamos la lectura lenta y la experiencia visual.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-box">
+        <h3>¿Querés colaborar o enviarnos una nota?</h3>
+        <a class="btn btn-primary" href="mailto:hola@latuerta.media">Escribir al correo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div style="font-family:var(--h-sans); font-weight:800; letter-spacing:.06em; text-transform:uppercase">La Tuerta</div>
+      <div style="opacity:.8; font-size:14px">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
+      <nav style="display:flex; gap:16px">
+        <a href="#" onclick="return false;" style="opacity:.6">Instagram</a>
+        <a href="#" onclick="return false;" style="opacity:.6">YouTube</a>
+        <a href="index.html#cultura" data-transition>Volver a notas</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Año
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Header sticky
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Fade IN
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('is-entered');
+    });
+
+    // Transición entre páginas (fade OUT)
+    document.querySelectorAll('a[data-transition]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const url = a.getAttribute('href');
+        if(!url || url.startsWith('#')) return;
+        e.preventDefault();
+        document.documentElement.classList.add('is-exiting');
+        setTimeout(()=>{ window.location.href = url; }, 240);
+      });
+    });
+  </script>
+</body>
+</html>

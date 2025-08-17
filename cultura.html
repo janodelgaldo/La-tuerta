@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>La Tuerta — Cultura</title>
+  <meta name="theme-color" content="#CE0000" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --white:#FFFFFF; --black:#04090C;
+      --bordo:#590707; --rojo:#CE0000; --rojo-oscuro:#A30404;
+      --gris:#736D66; --beige:#CDC7BD;
+
+      --h-sans:"Inter Tight",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+      --body-serif:"Merriweather",Georgia,"Times New Roman",serif;
+
+      --container:1600px;
+      --gap:clamp(18px,2.2vw,28px);
+      --speed:260ms;
+
+      --accent: var(--rojo);
+      --accent-ink: #fff;
+
+      /* overlay neutro para legibilidad sobre foto */
+      --hero-overlay:linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,.60) 100%);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--black); background:var(--white);
+      font-family:var(--body-serif); line-height:1.55;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      opacity:0; transition:opacity var(--speed) ease;
+      overflow-x:hidden;
+    }
+    body.is-ready{ opacity:1; }
+
+    img{max-width:100%; display:block}
+
+    /* ===== Header (igual que Home) ===== */
+    .site-header{
+      position:fixed; inset:0 0 auto 0; z-index:20; background:transparent; color:#fff;
+      transition:background var(--speed) ease, box-shadow var(--speed) ease, padding var(--speed) ease;
+      padding:16px 24px;
+    }
+    .site-header.is-sticky{
+      background:rgba(4,9,12,.92);
+      backdrop-filter:saturate(1.2) blur(6px);
+      box-shadow:0 6px 18px rgba(0,0,0,.2);
+      padding:12px 24px;
+    }
+    .nav{ max-width:var(--container); margin:0 auto; display:flex; align-items:center; gap:24px; }
+    .brand{ font-family:var(--h-sans); font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:clamp(20px,2vw,24px); }
+    .brand a{ color:inherit; text-decoration:none }
+    .spacer{flex:1}
+    .menu{ display:flex; gap:32px; align-items:center }
+    .menu a{
+      position:relative; color:inherit; text-decoration:none;
+      font-family:var(--h-sans); font-weight:900; letter-spacing:.03em; text-transform:uppercase;
+      font-size: clamp(14px, 1.2vw, 18px); line-height:1;
+      padding: 6px 0;
+      opacity:.95; transition:opacity .2s ease,color .2s ease;
+    }
+    .menu a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-8px; height:3px;
+      background:var(--rojo); transform:scaleX(0); transform-origin:left; transition:transform .22s ease;
+    }
+    .menu a:hover{ opacity:1; }
+    .menu a:hover::after{ transform:scaleX(1); }
+    .menu a[aria-current="page"]{ color:#fff; }
+    .menu a[aria-current="page"]::after{ transform:scaleX(1); }
+
+    /* ===== HERO con FOTO de fondo (mismo alto que Sobre nosotros) ===== */
+    .section-hero{
+      min-height:60svh;                         /* ← igual que “Sobre nosotros” */
+      position:relative; display:grid; place-items:end center; color:#fff;
+      padding: clamp(40px,8vw,80px) 20px;
+      text-align:left;
+    }
+    .section-hero::before{
+      content:""; position:absolute; inset:0; z-index:-1;
+      background:
+        var(--hero-overlay),
+        url("https://images.unsplash.com/photo-1520975922037-3a4ec2bf07d6?q=80&w=2400&auto=format&fit=crop") center/cover no-repeat;
+    }
+    .hero-bottom-line{
+      position:absolute; left:0; right:0; bottom:0; height:3px; background:rgba(255,255,255,.16);
+      box-shadow:0 0 0 1px rgba(0,0,0,.05) inset;
+    }
+
+    .section-hero .container{ max-width:var(--container); width:100%; position:relative; z-index:1; }
+    .kicker{
+      font-family:var(--h-sans); text-transform:uppercase; font-weight:900; letter-spacing:.06em; font-size:12px;
+      display:inline-flex; align-items:center; gap:10px;
+      border:2px solid var(--accent); color:#fff; border-radius:999px; padding:8px 12px; margin-bottom:12px;
+      background: color-mix(in srgb, var(--accent) 32%, transparent);
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    }
+    .kicker::before{ content:""; width:8px; height:8px; border-radius:999px; background:#fff; opacity:.9 }
+    .section-title{
+      font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.04em; line-height:.96;
+      font-size:clamp(42px,7.2vw,96px);
+      margin:0 0 8px;
+      text-shadow:0 12px 36px rgba(0,0,0,.55);
+      max-width:20ch;
+    }
+    .section-bajada{
+      max-width:60ch; margin:0; font-size:clamp(16px,2vw,20px);
+      color:#f2f2f2;
+      text-shadow:0 10px 30px rgba(0,0,0,.45);
+    }
+
+    /* Contenedor general */
+    .mag-container{ max-width:var(--container); margin:0 auto; padding: clamp(28px, 6vw, 64px) 20px; position:relative; }
+
+    /* MURO MAGAZINE */
+    .mag-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(20px, 3vw, 40px);
+      grid-auto-flow: dense;
+      position:relative; padding-bottom:24px; margin-bottom:24px;
+    }
+    .mag-grid::after{ content:""; position:absolute; left:10px; right:10px; bottom:0; height:1px; background:#ececec; }
+
+    .mag-item{ display:block; color:inherit; text-decoration:none; transition:transform var(--speed) ease; }
+    .mag-item:hover{ transform:translateY(-6px); }
+
+    .mag-media{
+      position:relative;
+      aspect-ratio: 4 / 3; background:#eaeaea; overflow:hidden;
+      border-radius:14px; box-shadow: 0 16px 38px rgba(0,0,0,.16);
+      transform: translateZ(0);
+    }
+    .mag-media::after{
+      content:""; position:absolute; inset:0; pointer-events:none; opacity:0;
+      background:
+        radial-gradient(60% 60% at 50% 60%, rgba(0,0,0,.18), transparent 70%),
+        linear-gradient(to bottom, transparent 60%, rgba(0,0,0,.14));
+      transition:opacity var(--speed) ease;
+      mix-blend-mode:multiply;
+    }
+    .mag-item:hover .mag-media::after{ opacity:1; }
+    .mag-item:hover .mag-media{ box-shadow: 0 22px 56px rgba(0,0,0,.24); }
+
+    .mag-media img{
+      width:100%; height:100%; object-fit:cover;
+      transform:scale(1.02);
+      transition:transform var(--speed) ease, filter var(--speed) ease, opacity var(--speed) ease;
+    }
+    .mag-item:hover .mag-media img{ transform:scale(1.06); filter:saturate(1.04) contrast(1.06); opacity:.98; }
+
+    .mag--tall{ aspect-ratio: 3 / 4; }
+    .mag--span2x{ grid-column: span 2; }
+    .mag--span2y{ grid-row: span 2; }
+    .mag--wide2{ grid-column: span 2; }
+    .mag--wide3{ grid-column: span 3; }
+
+    .mag-meta{
+      margin-top:12px; font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.04em;
+      font-weight:900; font-size:12px; opacity:.9; display:inline-flex; align-items:center; gap:8px;
+    }
+    .mag-meta::before{ content:""; width:10px; height:10px; border-radius:999px; background:var(--accent); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+    .mag-title{
+      margin:8px 0 0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase;
+      letter-spacing:.01em; line-height:1.06; font-size:clamp(22px, 2.2vw, 40px); max-width: 28ch;
+      text-shadow:0 6px 16px rgba(0,0,0,.08);
+      transition:color var(--speed) ease, text-shadow var(--speed) ease;
+    }
+    .mag-title--lg{ font-size: clamp(24px, 3vw, 52px); max-width: 34ch; }
+    .mag-title--wide{ max-width: 46ch; }
+    .mag-item:hover .mag-title{ text-shadow:0 10px 22px rgba(0,0,0,.18); }
+
+    @media (max-width:1200px){
+      .mag-grid{ grid-template-columns: repeat(2, 1fr); }
+      .mag--span2x{ grid-column: span 2; }
+      .mag--wide3{ grid-column: span 2; }
+    }
+    @media (max-width:720px){
+      .mag-grid{ grid-template-columns: 1fr; }
+      .mag--span2x, .mag--span2y, .mag--wide2, .mag--wide3{ grid-column:auto; grid-row:auto; }
+      .section-title{ font-size: clamp(28px, 9vw, 56px); }
+    }
+
+    /* Footer */
+    .site-footer{ background:var(--black); color:#e9e9e9; padding:40px 20px; margin-top:40px; }
+    .site-footer .container{ display:flex; gap:20px; justify-content:space-between; align-items:center; flex-wrap:wrap }
+    .site-footer a{ color:#e9e9e9; text-decoration:none; opacity:.9 }
+    .site-footer a:hover{ opacity:1 }
+
+    .fade-out{ opacity:0; transition: opacity var(--speed) ease; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="siteHeader" role="banner" aria-label="Cabecera del sitio">
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="brand"><a href="index.html" data-transition>LA TUERTA</a></div>
+      <div class="spacer"></div>
+      <div class="menu" role="menubar">
+        <a role="menuitem" href="index.html" data-transition>Home</a>
+        <a role="menuitem" href="cultura.html" aria-current="page">Notas</a>
+        <a role="menuitem" href="sobre-nosotros.html" data-transition>Sobre nosotros</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero de Cultura -->
+  <section class="section-hero" aria-label="Cultura">
+    <div class="container">
+      <span class="kicker">Sección</span>
+      <h1 class="section-title">Cultura</h1>
+      <p class="section-bajada">Historias, miradas y ciudad. Crónicas, ensayos y entrevistas sobre el pulso cultural contemporáneo.</p>
+    </div>
+    <span class="hero-bottom-line" aria-hidden="true"></span>
+  </section>
+
+  <!-- Listado de notas -->
+  <section class="mag-container">
+    <div class="mag-grid">
+      <a class="mag-item mag--wide2" href="#">
+        <figure class="mag-media">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2000&auto=format&fit=crop" alt="">
+        </figure>
+        <div class="mag-meta">Cultura</div>
+        <h3 class="mag-title mag-title--wide">La ciudad como escenario vivo</h3>
+      </a>
+
+      <a class="mag-item" href="#">
+        <figure class="mag-media">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=2000&auto=format&fit=crop" alt="">
+        </figure>
+        <div class="mag-meta">Cultura</div>
+        <h3 class="mag-title">Pequeñas historias de barrio</h3>
+      </a>
+
+      <a class="mag-item mag--span2y" href="#">
+        <figure class="mag-media mag--tall">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2000&auto=format&fit=crop" alt="">
+        </figure>
+        <div class="mag-meta">Ensayo</div>
+        <h3 class="mag-title mag-title--lg">Cuerpos y espacios: un diálogo visual</h3>
+      </a>
+
+      <a class="mag-item" href="#">
+        <figure class="mag-media">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=2000&auto=format&fit=crop" alt="">
+        </figure>
+        <div class="mag-meta">Crónica</div>
+        <h3 class="mag-title">Retratos urbanos: voces anónimas</h3>
+      </a>
+
+      <a class="mag-item" href="#">
+        <figure class="mag-media">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1520975922037-3a4ec2bf07d6?q=80&w=2000&auto=format&fit=crop" alt="">
+        </figure>
+        <div class="mag-meta">Cultura</div>
+        <h3 class="mag-title">Cartografías del ocio</h3>
+      </a>
+
+      <a class="mag-item mag--wide2" href="#">
+        <figure class="mag-media">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=2000&auto=format&fit=crop" alt="">
+        </figure>
+        <div class="mag-meta">Cultura</div>
+        <h3 class="mag-title mag-title--wide">Arte callejero: narrativas en las paredes</h3>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div style="font-family:var(--h-sans); font-weight:800; letter-spacing:.06em; text-transform:uppercase">La Tuerta</div>
+      <div style="opacity:.8; font-size:14px">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
+      <nav style="display:flex; gap:16px">
+        <a href="#" data-transition>Instagram</a>
+        <a href="#" data-transition>YouTube</a>
+        <a href="#" data-transition>Contacto</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    // Año
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Header sticky
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Fade-in
+    window.addEventListener('DOMContentLoaded', () => { document.body.classList.add('is-ready'); });
+
+    // Transición entre páginas
+    document.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[data-transition]');
+      if(!a) return;
+      const url = a.getAttribute('href');
+      if(!url || url.startsWith('#')) return;
+      e.preventDefault();
+      document.body.classList.remove('is-ready');
+      document.body.classList.add('fade-out');
+      setTimeout(()=>{ window.location.href = url; }, 220);
+    });
+  </script>
+</body>
+</html>
