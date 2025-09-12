@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Audiovisual — La Tuerta</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --white:#FFFFFF; --black:#0D0D0D; --gris:#D0D0D0; --rojo:#CD0613;
+      --accent: var(--rojo);
+
+      --h-sans:"Inter Tight",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+      --body-serif:"Merriweather",Georgia,"Times New Roman",serif;
+
+      --container:1600px;
+      --gap:clamp(18px,2.2vw,28px);
+      --speed:260ms;
+
+      --edge: clamp(18px, 4vw, 40px);
+      --hero-overlay:linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.62) 100%);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--black); background:var(--white);
+      font-family:var(--body-serif); line-height:1.6;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      opacity:0; transition:opacity var(--speed) ease; /* fade in */
+    }
+    body.is-ready{ opacity:1 }
+
+    img{max-width:100%; display:block}
+
+    /* ===== HEADER (igual Home) ===== */
+    .site-header{
+      position:fixed; inset:0 0 auto 0; z-index:20;
+      background:rgba(255,255,255,0); color:var(--accent);
+      transition:background var(--speed) ease, box-shadow var(--speed) ease, padding var(--speed) ease, border-color var(--speed) ease, color var(--speed) ease;
+      padding:14px 24px; border-bottom:1px solid transparent; box-shadow:none;
+    }
+    .site-header.is-sticky{
+      background:var(--white); border-bottom-color:var(--gris);
+      box-shadow:0 6px 18px rgba(13,13,13,.06); padding:10px 24px; color:var(--accent);
+    }
+    .nav{ max-width:var(--container); margin:0 auto; display:flex; align-items:center; gap:24px; }
+    .brand{ font-family:var(--h-sans); font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:clamp(18px,1.6vw,22px); color:var(--accent); }
+    .brand a{ color:inherit; text-decoration:none }
+    .spacer{flex:1}
+
+    .menu{ display:flex; gap:clamp(12px, 2vw, 24px); align-items:center }
+    .menu a{
+      position:relative; color:var(--accent); text-decoration:none;
+      font-family:var(--h-sans); font-weight:900; letter-spacing:.02em; text-transform:uppercase;
+      font-size: clamp(12px, .9vw, 14px); line-height:1; padding:4px 0; opacity:.95; transition:.2s;
+    }
+    .menu a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
+      background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .22s ease;
+    }
+    .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
+    .menu a[aria-current="page"]::after{ transform:scaleX(1) }
+
+    /* ===== HERO (tamaño igual Home) + texto tipeado de fondo ===== */
+    .av-hero{
+      min-height: clamp(360px, 64svh, 720px); /* igual Home */
+      position:relative; display:grid; place-items:center; text-align:center;
+      padding: clamp(36px, 8vw, 80px) 20px;
+      background:
+        var(--hero-overlay),
+        url("img/audiovisual2.jpg") center 40% / cover no-repeat; /* ← reemplazar ruta si querés */
+      filter:grayscale(.06);
+    }
+    .av-hero h1{
+      position:relative; z-index:2; margin:0;
+      font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.08em;
+      font-size: clamp(44px, 10vw, 120px); /* mismo H1 que en Home */
+      line-height:.95; color:var(--accent);
+      text-shadow:0 14px 44px rgba(0,0,0,.50);
+    }
+
+    /* capa de texto “Próximamente” tipeado detrás */
+    .type-bg{ position:absolute; inset:0; z-index:1; pointer-events:none; user-select:none; overflow:hidden; display:grid; place-items:center; }
+    .type-screen{
+      max-width:min(1100px, 92vw);
+      margin:0 auto;
+      padding: clamp(28px,6vw,64px) 20px;
+      font-family:var(--body-serif);
+      font-size: clamp(18px, 1.9vw, 24px);
+      line-height:1.8;
+      text-align:center;
+      color: rgba(255,255,255,.78);
+      text-shadow: 0 12px 36px rgba(0,0,0,.40);
+      white-space: pre-wrap;
+    }
+    .type-screen::after{
+      content:""; display:inline-block; width:2px; height:1em; background:rgba(255,255,255,.78);
+      vertical-align:-0.15em; margin-left:2px; animation: blink 1s steps(1,end) infinite;
+    }
+    @keyframes blink{ 50%{ opacity:0 } }
+
+    /* ===== Secciones base ===== */
+    .section{ padding: clamp(28px, 6vw, 64px) 20px; }
+    .container{ max-width:var(--container); margin:0 auto }
+
+    /* Cierre (igual Home) */
+    .closing-banner{
+      position: relative; min-height: clamp(360px, 60vh, 720px);
+      background: var(--black); color: #fff; border-radius: 0; margin: 0;
+      display: grid; place-items: center; box-shadow: none; overflow: hidden;
+    }
+    .cb-corner{
+      position: absolute; display: flex; gap: clamp(10px, 1.8vw, 22px);
+      font-family: var(--h-sans); font-weight: 900; letter-spacing: .04em; text-transform: uppercase;
+      font-size: clamp(12px, .9vw, 14px); padding: 18px 24px;
+    }
+    .cb-corner a{ color: var(--accent); text-decoration: none; opacity: .95; transition: opacity .2s ease, transform .2s ease; white-space: nowrap; }
+    .cb-corner a:hover{ opacity:1; transform: translateY(-1px); }
+    .cb-top-left{  top: 0; left: 0; }
+    .cb-top-right{ top: 0; right: 0; }
+    .cb-bot-left{  bottom: 36px; left: 0; }
+    .cb-bot-right{ bottom: 36px; right: 0; }
+
+    .closing-logo{ width: clamp(200px, 26vw, 420px); height: auto; display: block; filter: drop-shadow(0 10px 30px rgba(0,0,0,.45)); user-select: none; }
+    .cb-copy{ position:absolute; left:50%; bottom:10px; transform:translateX(-50%); font-size:12px; opacity:.7; font-family:var(--body-serif); white-space:nowrap; color: var(--accent) }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="siteHeader" role="banner" aria-label="Cabecera del sitio">
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="brand"><a href="index.html" data-transition>LA TUERTA</a></div>
+      <div class="spacer"></div>
+      <div class="menu" role="menubar">
+        <a role="menuitem" href="index.html" data-transition>Home</a>
+        <a role="menuitem" href="ediciones.html" data-transition>Ediciones</a>
+        <a role="menuitem" href="sobre-nosotros.html" data-transition>¿Quiénes somos?</a>
+        <a role="menuitem" href="audiovisual.html" aria-current="page">Audiovisual</a>
+        <a role="menuitem" href="index.html#newsletter" data-transition>Newsletter</a>
+        <a role="menuitem" href="contacto.html" data-transition>Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO Audiovisual -->
+  <section class="av-hero" aria-label="Audiovisuales" id="hero">
+    <div class="type-bg" aria-hidden="true">
+      <div class="type-screen" id="heroType"></div>
+    </div>
+    <h1>Audiovisuales</h1>
+  </section>
+
+  <!-- (opcional) sección mínima por ahora -->
+  <section class="section" aria-label="Estado">
+    <div class="container" style="text-align:center; max-width:900px">
+      <p style="margin:0; color:#333; font-size:clamp(16px,1.4vw,18px)">
+        Estamos preparando esta sección. Muy pronto vas a poder explorar nuestros proyectos audiovisuales.
+      </p>
+    </div>
+  </section>
+
+  <!-- Cierre -->
+  <section class="closing-banner" aria-label="Cierre del sitio">
+    <nav class="cb-corner cb-top-left" aria-label="Links informativos">
+      <a href="#">Contribuidores</a>
+      <a href="#">Legal / Privacidad</a>
+      <a href="audiovisual.html" aria-current="page">Tienda</a>
+      <a href="sobre-nosotros.html" data-transition>Sobre nosotros</a>
+    </nav>
+
+    <nav class="cb-corner cb-top-right" aria-label="Redes sociales">
+      <a href="#" rel="noopener">Instagram</a>
+      <a href="#" rel="noopener">TikTok</a>
+      <a href="#" rel="noopener">LinkedIn</a>
+    </nav>
+
+    <nav class="cb-corner cb-bot-left" aria-label="Secciones">
+      <a href="ediciones.html" data-transition>Ediciones</a>
+      <a href="index.html#ediciones" data-transition>Edición actual</a>
+      <a href="audiovisual.html" aria-current="page">Audiovisual</a>
+    </nav>
+
+    <nav class="cb-corner cb-bot-right" aria-label="Contacto">
+      <a href="index.html#newsletter" data-transition>Newsletter</a>
+      <a href="contacto.html" data-transition>Contacto</a>
+    </nav>
+
+    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
+  </section>
+
+  <script>
+    // Año
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Fade-in
+    window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
+
+    // Header sticky
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+
+    // Transición entre páginas
+    document.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[data-transition]');
+      if(!a) return;
+      const url = a.getAttribute('href');
+      if(!url || url.startsWith('#')) return;
+      e.preventDefault();
+      document.body.classList.remove('is-ready');
+      setTimeout(()=>{ window.location.href = url; }, 220);
+    });
+
+    // ===== Texto de fondo tipeado (PRÓXIMAMENTE) en el HERO =====
+    const heroTypeTarget = document.getElementById('heroType');
+
+    // Genera muchas repeticiones de "Próximamente" y las corta en líneas para llenar el fondo
+    function buildSoonText(reps = 60){
+      const words = Array(reps).fill('Próximamente');
+      // armo líneas alternando 8/9 palabras para que quede "textura"
+      let out = [], i = 0, chunk = 8;
+      while(i < words.length){
+        out.push(words.slice(i, i+chunk).join(' '));
+        i += chunk;
+        chunk = (chunk === 8) ? 9 : 8;
+      }
+      return out.join('\n');
+    }
+    const TYPE_TEXT = buildSoonText(90);
+
+    let tIdx = 0, typing = false, visible = false;
+    function typeLoop(){
+      if(!visible) return;
+      typing = true;
+      heroTypeTarget.textContent += TYPE_TEXT.charAt(tIdx++);
+      if(tIdx >= TYPE_TEXT.length){
+        tIdx = 0;
+        heroTypeTarget.textContent = "";
+        setTimeout(typeLoop, 700);
+        return;
+      }
+      const speed = 22 + Math.random()*48; // ritmo humano
+      setTimeout(typeLoop, speed);
+    }
+    const heroObs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        visible = e.isIntersecting;
+        if(visible && !typing){ typeLoop(); }
+      });
+    }, {threshold:.2});
+    heroObs.observe(document.getElementById('hero'));
+  </script>
+</body>
+</html>

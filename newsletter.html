@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>La Tuerta — Newsletter</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --white:#FFFFFF; --black:#0D0D0D; --gris:#D0D0D0; --rojo:#CD0613;
+      --accent: var(--rojo);
+
+      --h-sans:"Inter Tight",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+      --body-serif:"Merriweather",Georgia,"Times New Roman",serif;
+
+      --container:1600px;
+      --gap:clamp(18px,2.2vw,28px);
+      --speed:260ms;
+
+      --hero-overlay:linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(0,0,0,.60) 100%);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--black); background:var(--white);
+      font-family:var(--body-serif); line-height:1.6;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      opacity:0; transition:opacity var(--speed) ease;
+    }
+    body.is-ready{ opacity:1 }
+
+    img{max-width:100%; display:block}
+
+    /* ===== HEADER (igual sitio) ===== */
+    .site-header{
+      position:fixed; inset:0 0 auto 0; z-index:20;
+      background:rgba(255,255,255,0); color:var(--accent);
+      transition:background var(--speed) ease, box-shadow var(--speed) ease, padding var(--speed) ease, border-color var(--speed) ease, color var(--speed) ease;
+      padding:14px 24px; border-bottom:1px solid transparent; box-shadow:none;
+    }
+    .site-header.is-sticky{
+      background:var(--white); border-bottom-color:var(--gris);
+      box-shadow:0 6px 18px rgba(13,13,13,.06); padding:10px 24px; color:var(--accent);
+    }
+    .nav{ max-width:var(--container); margin:0 auto; display:flex; align-items:center; gap:24px; }
+    .brand{ font-family:var(--h-sans); font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:clamp(18px,1.6vw,22px); color:var(--accent); }
+    .brand a{ color:inherit; text-decoration:none }
+    .spacer{flex:1}
+    .menu{ display:flex; gap:clamp(12px, 2vw, 24px); align-items:center }
+    .menu a{
+      position:relative; color:var(--accent); text-decoration:none;
+      font-family:var(--h-sans); font-weight:900; letter-spacing:.02em; text-transform:uppercase;
+      font-size: clamp(12px, .9vw, 14px); line-height:1; padding:4px 0; opacity:.95; transition:.2s;
+    }
+    .menu a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
+      background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .22s ease;
+    }
+    .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
+    .menu a[aria-current="page"]::after{ transform:scaleX(1) }
+
+    /* ===== HERO (grande como la home) ===== */
+    .hero{
+      min-height: clamp(520px, 82svh, 920px);
+      position:relative; display:grid; place-items:center; text-align:center; color:var(--accent);
+      padding: clamp(36px, 8vw, 80px) 20px;
+      overflow:hidden;
+    }
+    /* Fondo con overlay + imagen (solo subí img/newsletter-hero.jpg) */
+    .hero::before{
+      content:""; position:absolute; inset:0; z-index:-1;
+      background:
+        var(--hero-overlay),
+        url("img/newsletter2.jpg") center 40% / cover no-repeat;
+      filter:grayscale(.15);
+    }
+    .hero h1{
+      margin:0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.08em;
+      font-size: clamp(44px, 10vw, 120px); line-height:.95;
+      text-shadow:0 14px 44px rgba(0,0,0,.50);
+    }
+
+    /* ===== Contenedores ===== */
+    .section{ padding: clamp(28px, 6vw, 64px) 20px; }
+    .container{ max-width:var(--container); margin:0 auto }
+
+    /* Foto debajo de la hero (opcional) */
+    .nl-photo{
+      max-width: min(1200px, 94vw); margin: -40px auto 0;
+      border-radius: 24px; overflow:hidden; box-shadow: 0 26px 60px rgba(0,0,0,.18);
+    }
+    .nl-photo img{ width:100%; height:auto; display:block; }
+
+    /* Descripción + Form */
+    .split{
+      max-width:min(1200px,94vw); margin: clamp(28px,6vw,60px) auto 0;
+      display:grid; gap: clamp(18px,3vw,36px); grid-template-columns: 1.1fr .9fr; align-items:start;
+    }
+    @media (max-width:980px){ .split{ grid-template-columns: 1fr } }
+
+    .lead{ font-size: clamp(18px, 1.65vw, 20px); color:#222; }
+
+    .card{
+      background:#fff; border:1px solid #eee; border-radius:22px; padding: clamp(18px,3vw,28px);
+      box-shadow:0 16px 38px rgba(0,0,0,.06);
+    }
+    .kicker{
+      display:inline-block; border:2px solid var(--accent); color:var(--accent); padding:8px 12px; border-radius:999px;
+      font:900 12px var(--h-sans); text-transform:uppercase; letter-spacing:.06em; margin-bottom:12px;
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+    .title{
+      margin:0 0 8px; font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.06em;
+      color:var(--accent); font-size: clamp(22px,2.2vw,28px);
+    }
+    .muted{ color:#555; font-size:14px }
+
+    form{ display:grid; gap:12px; margin-top:8px }
+    label{ font-weight:700; font-size:14px }
+    input[type="email"], input[type="text"]{
+      padding:14px 14px; border-radius:12px; border:1px solid #ddd; font-size:16px; font-family:var(--body-serif);
+      outline:none; transition:border-color var(--speed) ease, box-shadow var(--speed) ease;
+    }
+    input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(205,6,19,.15) }
+    .btn{
+      --btn-bg:var(--accent); --btn-fg:#fff; --btn-bd:var(--accent);
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 18px; border-radius:999px; border:2px solid var(--btn-bd);
+      font-family:var(--h-sans); font-weight:900; letter-spacing:.04em; text-transform:uppercase; font-size:12px;
+      text-decoration:none; color:var(--btn-fg); background:var(--btn-bg);
+      box-shadow:0 18px 40px rgba(205,6,19,.25); transition: transform var(--speed) ease, box-shadow var(--speed) ease;
+      cursor:pointer;
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 22px 54px rgba(205,6,19,.28) }
+    .ok{ display:none; margin-top:8px; font-weight:700; color:var(--accent) }
+
+    /* ===== CIERRE (igual home) ===== */
+    .closing-banner{
+      position: relative; min-height: clamp(360px, 60vh, 720px);
+      background: var(--black); color: #fff; border-radius: 0; margin: 0;
+      display: grid; place-items: center; box-shadow: none; overflow: hidden;
+    }
+    .cb-corner{
+      position: absolute; display: flex; gap: clamp(10px, 1.8vw, 22px);
+      font-family: var(--h-sans); font-weight: 900; letter-spacing: .04em; text-transform: uppercase;
+      font-size: clamp(12px, .9vw, 14px); padding: 18px 24px;
+    }
+    .cb-corner a{ color: var(--accent); text-decoration: none; opacity: .95; transition: opacity .2s ease, transform .2s ease; white-space: nowrap; }
+    .cb-corner a:hover{ opacity:1; transform: translateY(-1px); }
+    .cb-top-left{  top: 0; left: 0; }
+    .cb-top-right{ top: 0; right: 0; }
+    .cb-bot-left{  bottom: 36px; left: 0; }
+    .cb-bot-right{ bottom: 36px; right: 0; }
+    .closing-logo{ width: clamp(200px, 26vw, 420px); height: auto; display: block; filter: drop-shadow(0 10px 30px rgba(0,0,0,.45)); user-select: none; }
+    .cb-copy{ position:absolute; left:50%; bottom:10px; transform:translateX(-50%); font-size:12px; opacity:.7; font-family:var(--body-serif); white-space:nowrap; color: var(--accent) }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="siteHeader" role="banner" aria-label="Cabecera del sitio">
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="brand"><a href="index.html" data-transition>LA TUERTA</a></div>
+      <div class="spacer"></div>
+      <div class="menu" role="menubar">
+        <a role="menuitem" href="index.html" data-transition>Home</a>
+        <a role="menuitem" href="ediciones.html" data-transition>Ediciones</a>
+        <a role="menuitem" href="sobre-nosotros.html" data-transition>¿Quiénes somos?</a>
+        <a role="menuitem" href="audiovisual.html" data-transition>Audiovisual</a>
+        <a role="menuitem" href="newsletter.html" aria-current="page">Newsletter</a>
+        <a role="menuitem" href="contacto.html" data-transition>Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Newsletter">
+    <h1>Newsletter</h1>
+  </section>
+
+  <!-- Descripción + Suscripción -->
+  <section class="section">
+    <div class="container split">
+      <div>
+        <span class="kicker">La Tuerta en tu correo</span>
+        <h2 class="title">Crónicas, entrevistas y pistas para leer lento</h2>
+        <p class="lead">
+          Un envío curado con lo mejor de nuestra edición: lecturas destacadas, fotos que respiren y recomendaciones
+          para el fin de semana. Sin spam, sin apuro —cuando haya algo que valga la pena.
+        </p>
+      </div>
+
+      <aside class="card" aria-label="Formulario de suscripción">
+        <form id="nlForm" novalidate>
+          <div>
+            <label for="name">Nombre (opcional)</label>
+            <input id="name" name="name" type="text" placeholder="Tu nombre" autocomplete="name">
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="tucorreo@ejemplo.com" required autocomplete="email">
+          </div>
+          <button class="btn" type="submit">Suscribirme</button>
+          <div class="muted">Al suscribirte aceptás recibir nuestro newsletter ocasional. Podés desuscribirte cuando quieras.</div>
+          <div id="ok" class="ok">¡Gracias! Te enviamos un correo para confirmar la suscripción.</div>
+        </form>
+      </aside>
+    </div>
+  </section>
+
+  <!-- CIERRE igual home -->
+  <section class="closing-banner" aria-label="Cierre del sitio">
+    <nav class="cb-corner cb-top-left" aria-label="Links informativos">
+      <a href="#" onclick="return false;">Contribuidores</a>
+      <a href="#" onclick="return false;">Legal / Privacidad</a>
+      <a href="audiovisual.html" data-transition>Tienda</a>
+      <a href="sobre-nosotros.html" data-transition>Sobre nosotros</a>
+    </nav>
+
+    <nav class="cb-corner cb-top-right" aria-label="Redes sociales">
+      <a href="#" rel="noopener">Instagram</a>
+      <a href="#" rel="noopener">TikTok</a>
+      <a href="#" rel="noopener">LinkedIn</a>
+    </nav>
+
+    <nav class="cb-corner cb-bot-left" aria-label="Secciones">
+      <a href="ediciones.html" data-transition>Ediciones</a>
+      <a href="index.html#ediciones" data-transition>Edición actual</a>
+      <a href="audiovisual.html" data-transition>Audiovisual</a>
+    </nav>
+
+    <nav class="cb-corner cb-bot-right" aria-label="Contacto">
+      <a href="index.html#newsletter" data-transition>Newsletter</a>
+      <a href="contacto.html" data-transition>Contacto</a>
+    </nav>
+
+    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
+  </section>
+
+  <script>
+    // Año
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Fade-in
+    window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
+
+    // Header sticky
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+
+    // Transición entre páginas
+    document.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[data-transition]');
+      if(!a) return;
+      const url = a.getAttribute('href');
+      if(!url || url.startsWith('#')) return;
+      e.preventDefault();
+      document.body.classList.remove('is-ready');
+      setTimeout(()=>{ window.location.href = url; }, 220);
+    });
+
+    // Form "fake" submit
+    const form = document.getElementById('nlForm');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const email = document.getElementById('email');
+      if(!email.value || !email.checkValidity()){
+        email.focus(); email.reportValidity(); return;
+      }
+      document.getElementById('ok').style.display = 'block';
+      form.reset();
+    });
+  </script>
+</body>
+</html>

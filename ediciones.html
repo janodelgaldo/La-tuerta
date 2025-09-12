@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>La Tuerta — Ediciones</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --white:#FFFFFF; --black:#0D0D0D; --gris:#D0D0D0; --rojo:#CD0613;
+      --accent: var(--rojo);
+
+      --h-sans:"Inter Tight",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+      --body-serif:"Merriweather",Georgia,"Times New Roman",serif;
+
+      --container:1600px;
+      --gap:clamp(18px,2.2vw,28px);
+      --speed:260ms;
+
+      --edge: clamp(18px, 4vw, 40px);
+      --hero-overlay:linear-gradient(180deg, rgba(0,0,0,.06) 10%, rgba(0,0,0,.62) 100%);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--black); background:var(--white);
+      font-family:var(--body-serif); line-height:1.55;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      opacity:0; transition:opacity var(--speed) ease;
+    }
+    body.is-ready{ opacity:1; }
+
+    img{max-width:100%; display:block}
+
+    /* ===== HEADER (igual Home) ===== */
+    .site-header{
+      position:fixed; inset:0 0 auto 0; z-index:20;
+      background:rgba(255,255,255,0); color:var(--accent);
+      transition:background var(--speed) ease, box-shadow var(--speed) ease, padding var(--speed) ease, border-color var(--speed) ease, color var(--speed) ease;
+      padding:14px 24px; border-bottom:1px solid transparent; box-shadow:none;
+    }
+    .site-header.is-sticky{
+      background:var(--white); border-bottom-color:var(--gris);
+      box-shadow:0 6px 18px rgba(13,13,13,.06); padding:10px 24px; color:var(--accent);
+    }
+    .nav{ max-width:var(--container); margin:0 auto; display:flex; align-items:center; gap:24px; }
+    .brand{ font-family:var(--h-sans); font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:clamp(18px,1.6vw,22px); color:var(--accent); }
+    .brand a{ color:inherit; text-decoration:none }
+    .spacer{flex:1}
+
+    .menu{ display:flex; gap:clamp(12px, 2vw, 24px); align-items:center }
+    .menu a{
+      position:relative; color:var(--accent); text-decoration:none;
+      font-family:var(--h-sans); font-weight:900; letter-spacing:.02em; text-transform:uppercase;
+      font-size: clamp(12px, .9vw, 14px); line-height:1; padding:4px 0; opacity:.95; transition:.2s;
+    }
+    .menu a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
+      background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .22s ease;
+    }
+    .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
+    .menu a[aria-current="page"]::after{ transform:scaleX(1) }
+
+    /* ===== HERO ===== */
+    .page-hero{
+      min-height: clamp(360px, 64svh, 720px);
+      position:relative; display:grid; place-items:center; color:var(--accent);
+      text-align:center; padding: clamp(36px, 8vw, 80px) 20px;
+    }
+    .page-hero::before{
+      content:""; position:absolute; inset:0; z-index:-1;
+      background:
+        var(--hero-overlay),
+        url("img/La\ Tuerta\ -\ Ediciones.jpg") center 40% / cover no-repeat;
+      filter:grayscale(.15);
+    }
+    .page-hero h1{
+      margin:0; font-family:var(--h-sans); font-weight:900; letter-spacing:.08em; text-transform:uppercase;
+      font-size: clamp(44px, 10vw, 120px);
+      line-height:.95;
+      text-shadow:0 14px 44px rgba(0,0,0,.50);
+      color:var(--accent);
+    }
+
+    /* ===== Contenedor / títulos ===== */
+    .mag-container{ max-width:var(--container); margin:0 auto; padding: clamp(28px, 6vw, 64px) 20px; }
+
+    /* Encabezado de cada edición */
+    .ed-head{
+      display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+      margin: 0 0 16px;
+    }
+    .ed-title{
+      margin:0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.08em;
+      color:var(--accent); line-height:1;
+      font-size: clamp(28px, 4.2vw, 60px);
+    }
+    .ed-title strong{ font-weight:900 }
+    .ed-date{
+      font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.10em; font-weight:900;
+      font-size: clamp(10px, .9vw, 13px);
+      color: var(--accent);
+      white-space:nowrap;
+    }
+
+    /* === Carrusel === */
+    .ed-wrap{ position:relative; max-width:var(--container); margin:0 auto; }
+    .ed-arrow{
+      position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+      width:44px; height:44px; border-radius:999px; border:0; display:grid; place-items:center; cursor:pointer;
+      background:rgba(13,13,13,.92); color:#fff; box-shadow:0 12px 28px rgba(0,0,0,.22); transition:transform .2s ease, opacity .2s ease;
+    }
+    .ed-arrow:hover{ transform:translateY(-50%) scale(1.05) }
+    .ed-arrow:disabled{ opacity:.45; cursor:not-allowed }
+    .ed-prev{ left:6px } .ed-next{ right:6px }
+    @media (max-width: 900px){ .ed-arrow{ width:38px; height:38px } }
+
+    .ed-strip{
+      --grid-cols:4;
+      display:flex; gap:var(--gap);
+      overflow:auto; scroll-snap-type:x mandatory; border-radius:22px;
+      padding: 0 var(--edge); scroll-padding-left: var(--edge); scroll-padding-right: var(--edge);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width:none; -ms-overflow-style:none;
+    }
+    .ed-strip::-webkit-scrollbar{ display:none }
+
+    .ed-card{
+      scroll-snap-align:start;
+      flex: 0 0 calc((100% - (var(--grid-cols) - 1) * var(--gap)) / var(--grid-cols));
+      color:inherit; text-decoration:none; transition: transform var(--speed) ease;
+    }
+    .ed-card:hover{ transform: translateY(-4px) }
+
+    @media (max-width:1200px){ .ed-strip{ --grid-cols:3 } }
+    @media (max-width:1024px){ .ed-strip{ --grid-cols:2 } }
+    @media (max-width:640px){ .ed-strip{ --grid-cols:1 } }
+
+    .ed-media{ width:100%; aspect-ratio: 3 / 4; border-radius: 28px; overflow:hidden; background:#eee;
+      box-shadow: 0 26px 60px rgba(205,6,19,.18), 0 12px 28px rgba(0,0,0,.12);
+    }
+    .ed-media img{ width:100%; height:100%; object-fit:cover; display:block }
+    .ed-meta{
+      margin-top:10px; font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.04em;
+      font-weight:900; font-size:12px; color:var(--accent); display:flex; align-items:center; gap:8px;
+    }
+    .ed-dot{ width:8px; height:8px; border-radius:999px; background:var(--accent); display:inline-block }
+
+    .ed-title-note{
+      margin:6px 0 0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase;
+      letter-spacing:.005em; line-height:1.04; color:var(--black);
+      font-size: clamp(18px, 1.8vw, 24px);
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; word-break:break-word;
+    }
+    @media (max-width:640px){ .ed-title-note{ font-size: clamp(18px, 5vw, 22px) } }
+
+    /* ===== Cierre (igual Home) ===== */
+    .closing-banner{
+      position: relative; min-height: clamp(360px, 60vh, 720px); background: var(--black); color: #fff;
+      border-radius: 0; margin: 0; display: grid; place-items: center; box-shadow: none; overflow: hidden;
+    }
+    .cb-corner{
+      position: absolute; display: flex; gap: clamp(10px, 1.8vw, 22px);
+      font-family: var(--h-sans); font-weight: 900; letter-spacing: .04em; text-transform: uppercase;
+      font-size: clamp(12px, .9vw, 14px); padding: 18px 24px;
+    }
+    .cb-corner a{ color: var(--accent); text-decoration:none; opacity:.95; transition: opacity .2s ease, transform .2s ease; white-space: nowrap; }
+    .cb-corner a:hover{ opacity:1; transform: translateY(-1px); }
+    .cb-top-left{  top: 0; left: 0; }
+    .cb-top-right{ top: 0; right: 0; }
+    .cb-bot-left{  bottom: 36px; left: 0; }
+    .cb-bot-right{ bottom: 36px; right: 0; }
+
+    .closing-logo{ width: clamp(200px, 26vw, 420px); height: auto; display: block; filter: drop-shadow(0 10px 30px rgba(0,0,0,.45)); user-select: none; }
+    .cb-copy{ position:absolute; left:50%; bottom:10px; transform:translateX(-50%); font-size:12px; opacity:.7; font-family:var(--body-serif); white-space:nowrap; color: var(--accent) }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="siteHeader" role="banner" aria-label="Cabecera del sitio">
+    <nav class="nav" aria-label="Navegación principal">
+      <div class="brand"><a href="index.html" data-transition>LA TUERTA</a></div>
+      <div class="spacer"></div>
+      <div class="menu" role="menubar">
+        <a role="menuitem" href="index.html" data-transition>Home</a>
+        <a role="menuitem" href="ediciones.html" aria-current="page">Ediciones</a>
+        <a role="menuitem" href="sobre-nosotros.html" data-transition>¿Quiénes somos?</a>
+        <a role="menuitem" href="audiovisual.html" data-transition>Audiovisual</a>
+        <a role="menuitem" href="index.html#newsletter" data-transition>Newsletter</a>
+        <a role="menuitem" href="contacto.html" data-transition>Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="page-hero" aria-label="Portada de Ediciones">
+    <h1>Ediciones</h1>
+  </section>
+
+  <!-- ===== LA TUERTA #001 (primera) ===== -->
+  <section class="mag-container" id="ed1">
+    <header class="ed-head">
+      <h2 class="ed-title"><strong>LA TUERTA #001</strong></h2>
+      <time class="ed-date" datetime="2025-09">SEPTIEMBRE 2025</time>
+    </header>
+
+    <div class="ed-wrap" aria-roledescription="carousel" aria-label="Notas edición 1">
+      <button class="ed-arrow ed-prev" aria-label="Anterior">‹</button>
+      <div class="ed-strip" tabindex="0">
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Cultura</div><h4 class="ed-title-note">Miradas sobre el archivo</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1482575832494-771f74bf6857?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Cultura</div><h4 class="ed-title-note">Ensayo visual: bordes y cuerpos</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Cultura</div><h4 class="ed-title-note">Narrativas desde el espacio público</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Fotografía</div><h4 class="ed-title-note">Retratos en foco</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Crónica</div><h4 class="ed-title-note">Noches de feria: ciudad encendida</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Música</div><h4 class="ed-title-note">Entrevista: la cocina de un disco</h4></a>
+      </div>
+      <button class="ed-arrow ed-next" aria-label="Siguiente">›</button>
+    </div>
+  </section>
+
+  <!-- ===== LA TUERTA #002 ===== -->
+  <section class="mag-container" id="ed2">
+    <header class="ed-head">
+      <h2 class="ed-title"><strong>LA TUERTA #002</strong></h2>
+      <time class="ed-date" datetime="2026-03">MARZO 2026</time>
+    </header>
+
+    <div class="ed-wrap" aria-roledescription="carousel" aria-label="Notas edición 2">
+      <button class="ed-arrow ed-prev" aria-label="Anterior">‹</button>
+      <div class="ed-strip" tabindex="0">
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Ensayo</div><h4 class="ed-title-note">La ciudad como escenario vivo</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Crónica</div><h4 class="ed-title-note">Pequeñas historias de barrio</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Cultura</div><h4 class="ed-title-note">Retratos urbanos: voces anónimas</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Cultura</div><h4 class="ed-title-note">Cartografías del ocio</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1520975922037-3a4ec2bf07d6?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Ensayo</div><h4 class="ed-title-note">Cuerpos y espacios: un diálogo visual</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Cultura</div><h4 class="ed-title-note">Tramas de lo cotidiano</h4></a>
+      </div>
+      <button class="ed-arrow ed-next" aria-label="Siguiente">›</button>
+    </div>
+  </section>
+
+  <!-- ===== LA TUERTA #003 (última) ===== -->
+  <section class="mag-container" id="ed3">
+    <header class="ed-head">
+      <h2 class="ed-title"><strong>LA TUERTA #003</strong></h2>
+      <time class="ed-date" datetime="2026-11">NOVIEMBRE 2026</time>
+    </header>
+
+    <div class="ed-wrap" aria-roledescription="carousel" aria-label="Notas edición 3">
+      <button class="ed-arrow ed-prev" aria-label="Anterior">‹</button>
+      <div class="ed-strip" tabindex="0">
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Crónica</div><h4 class="ed-title-note">Noche adentro: mapas del sonido</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Entrevista</div><h4 class="ed-title-note">Detrás de escena: la cocina de un disco</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Fotografía</div><h4 class="ed-title-note">Lugares que hablan</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1520974735194-6b6a5ad0c0f5?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Ensayo</div><h4 class="ed-title-note">Imaginarios en tránsito</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Cultura</div><h4 class="ed-title-note">Feria y memoria</h4></a>
+        <a class="ed-card" href="#"><figure class="ed-media"><img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?q=80&w=1600&auto=format&fit=crop" alt=""></figure><div class="ed-meta"><span class="ed-dot"></span> Cultura</div><h4 class="ed-title-note">El barrio como escena</h4></a>
+      </div>
+      <button class="ed-arrow ed-next" aria-label="Siguiente">›</button>
+    </div>
+  </section>
+
+  <!-- ===== CIERRE ===== -->
+  <section class="closing-banner" aria-label="Cierre del sitio">
+    <nav class="cb-corner cb-top-left" aria-label="Links informativos">
+      <a href="#">Contribuidores</a>
+      <a href="#">Legal / Privacidad</a>
+      <a href="audiovisual.html" data-transition>Tienda</a>
+      <a href="sobre-nosotros.html" data-transition>Sobre nosotros</a>
+    </nav>
+
+    <nav class="cb-corner cb-top-right" aria-label="Redes sociales">
+      <a href="#" rel="noopener">Instagram</a>
+      <a href="#" rel="noopener">TikTok</a>
+      <a href="#" rel="noopener">LinkedIn</a>
+    </nav>
+
+    <nav class="cb-corner cb-bot-left" aria-label="Secciones">
+      <a href="#ed1">La Tuerta #001</a>
+      <a href="#ed2">La Tuerta #002</a>
+      <a href="#ed3">La Tuerta #003</a>
+    </nav>
+
+    <nav class="cb-corner cb-bot-right" aria-label="Contacto">
+      <a href="newsletter.html" data-transition>Newsletter</a>
+      <a href="contacto.html" data-transition>Contacto</a>
+    </nav>
+
+    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
+  </section>
+
+  <script>
+    // Año
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Fade-in
+    window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
+
+    // Header sticky
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+
+    // Carruseles
+    document.querySelectorAll('.ed-wrap').forEach((wrap)=>{
+      const strip = wrap.querySelector('.ed-strip');
+      const cards = [...strip.querySelectorAll('.ed-card')];
+      const prev = wrap.querySelector('.ed-prev');
+      const next = wrap.querySelector('.ed-next');
+      let idx = 0, step = 0;
+
+      function measureStep(){
+        const a = cards[0], b = cards[1];
+        if (a && b) return b.offsetLeft - a.offsetLeft;
+        if (!a) return 0;
+        const rect = a.getBoundingClientRect();
+        const gap = parseFloat(getComputedStyle(strip).gap || 0);
+        return rect.width + gap;
+      }
+      const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+      function goTo(i){ idx = clamp(i, 0, cards.length - 1); strip.scrollTo({ left: idx * step, behavior:'smooth' }); updateUI(); }
+      function updateFromScroll(){ idx = Math.round(strip.scrollLeft / step); updateUI(); }
+      function updateUI(){ prev.disabled = idx <= 0; next.disabled = idx >= cards.length - 1; }
+      prev.addEventListener('click', ()=> goTo(idx - 1));
+      next.addEventListener('click', ()=> goTo(idx + 1));
+      let ticking = false;
+      strip.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(()=>{ updateFromScroll(); ticking = false; }); ticking = true; }});
+      strip.addEventListener('keydown', (e)=>{ if(e.key === 'ArrowRight') goTo(idx + 1); if(e.key === 'ArrowLeft') goTo(idx - 1); });
+      window.addEventListener('resize', ()=>{ const old = step; step = measureStep(); if (old && step) strip.scrollLeft = idx * step; });
+      step = measureStep(); updateUI();
+    });
+  </script>
+</body>
+</html>

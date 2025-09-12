@@ -11,9 +11,12 @@
 
   <style>
     :root{
-      --white:#FFFFFF; --black:#04090C;
-      --bordo:#590707; --rojo:#CE0000; --rojo-oscuro:#A30404;
-      --gris:#736D66; --beige:#CDC7BD;
+      /* PALETA CLIENTE */
+      --white:#FFFFFF; --black:#0D0D0D; --gris:#D0D0D0; --rojo:#CD0613;
+      --accent: var(--rojo);
+
+      /* legacy */
+      --bordo:#590707; --rojo-oscuro:#A30404; --beige:#CDC7BD;
 
       --h-sans:"Inter Tight",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
       --body-serif:"Merriweather",Georgia,"Times New Roman",serif;
@@ -22,10 +25,8 @@
       --gap:clamp(18px,2.2vw,28px);
       --speed:260ms;
 
-      /* margen/gutter lateral deseado para cada slide */
       --edge: clamp(18px, 4vw, 40px);
-
-      --hero-overlay:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.58) 100%);
+      --hero-overlay:linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.62) 100%);
     }
 
     *{box-sizing:border-box}
@@ -40,52 +41,57 @@
 
     img{max-width:100%; display:block}
 
-    /* Header */
+    /* ===== HEADER ===== */
     .site-header{
-      position:fixed; inset:0 0 auto 0; z-index:20; background:transparent; color:#fff;
-      transition:background var(--speed) ease, box-shadow var(--speed) ease, padding var(--speed) ease;
-      padding:16px 24px;
+      position:fixed; inset:0 0 auto 0; z-index:20;
+      background:rgba(255,255,255,0); color:var(--accent);
+      transition:background var(--speed) ease, box-shadow var(--speed) ease, padding var(--speed) ease, border-color var(--speed) ease, color var(--speed) ease;
+      padding:14px 24px; border-bottom:1px solid transparent; box-shadow:none;
     }
-    .site-header.is-sticky{ background:rgba(4,9,12,.92); backdrop-filter:saturate(1.2) blur(6px); box-shadow:0 6px 18px rgba(0,0,0,.2); padding:12px 24px; }
+    .site-header.is-sticky{
+      background:var(--white); border-bottom-color:var(--gris);
+      box-shadow:0 6px 18px rgba(13,13,13,.06); padding:10px 24px; color:var(--accent);
+    }
     .nav{ max-width:var(--container); margin:0 auto; display:flex; align-items:center; gap:24px; }
-    .brand{ font-family:var(--h-sans); font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:clamp(20px,2vw,24px); }
+    .brand{ font-family:var(--h-sans); font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:clamp(18px,1.6vw,22px); color:var(--accent); }
     .brand a{ color:inherit; text-decoration:none }
     .spacer{flex:1}
 
-    .menu{ display:flex; gap:32px; align-items:center }
+    .menu{ display:flex; gap:clamp(12px, 2vw, 24px); align-items:center }
     .menu a{
-      position:relative; color:inherit; text-decoration:none;
-      font-family:var(--h-sans); font-weight:900; letter-spacing:.03em; text-transform:uppercase;
-      font-size: clamp(14px, 1.2vw, 18px); line-height:1;
-      padding: 6px 0;
-      opacity:.95; transition:opacity .2s ease,color .2s ease;
+      position:relative; color:var(--accent); text-decoration:none;
+      font-family:var(--h-sans); font-weight:900; letter-spacing:.02em; text-transform:uppercase;
+      font-size: clamp(12px, .9vw, 14px); line-height:1; padding:4px 0; opacity:.95; transition:.2s;
     }
     .menu a::after{
-      content:""; position:absolute; left:0; right:0; bottom:-8px; height:3px;
-      background:var(--rojo); transform:scaleX(0); transform-origin:left; transition:transform .22s ease;
+      content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
+      background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .22s ease;
     }
-    .menu a:hover{ opacity:1; }
-    .menu a:hover::after{ transform:scaleX(1); }
-    .menu a[aria-current="page"]{ color:#fff; }
-    .menu a[aria-current="page"]::after{ transform:scaleX(1); }
+    .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
+    .menu a[aria-current="page"]::after{ transform:scaleX(1) }
 
     /* ===== HERO ===== */
     .hero{
-      min-height:100svh; position:relative; display:grid; place-items:center; color:#fff;
+      min-height:100svh; position:relative; display:grid; place-items:center; color:var(--accent);
     }
     .hero::before{
       content:""; position:absolute; inset:0; z-index:-1;
-      background: var(--hero-overlay),
-        url("https://images.unsplash.com/photo-1495954484750-af469f2f9be5?q=80&w=1800&auto=format&fit=crop") center/cover no-repeat;
+      background:
+        var(--hero-overlay),
+        url("https://wallpapers.com/images/hd/diego-maradona-football-champion-black-and-white-photography-d2s0f9i8fzrvdfqj.jpg")
+          center 35% / cover no-repeat;
     }
-    .hero-inner{ text-align:center; padding: clamp(24px, 6vw, 48px); max-width:min(900px, 92vw); }
+    .hero-inner{
+      text-align:center; padding: clamp(24px, 6vw, 48px); max-width:min(900px, 92vw);
+      margin:0 auto; display:flex; flex-direction:column; align-items:center;
+    }
     .hero h1{
       font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.08em; line-height:.92;
-      margin:0 0 .35em; font-size:clamp(44px, 10vw, 120px); text-shadow:0 10px 40px rgba(0,0,0,.45);
+      margin:0 0 .35em; font-size:clamp(44px, 10vw, 120px);
+      text-shadow:0 10px 40px rgba(0,0,0,.55), 0 0 1px rgba(0,0,0,.8);
     }
-    .hero p{ margin:0 0 1.25em; font-size:clamp(16px,2.2vw,20px); color:#f0f0f0; }
-
-    .cta{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center }
+    .hero p{ margin:0 0 1.25em; font-size:clamp(16px,2.2vw,20px); color:var(--accent); text-shadow:0 6px 28px rgba(0,0,0,.55) }
+    .cta{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; align-self:center }
     .btn{
       --btn-bg:transparent; --btn-fg:#fff; --btn-bd:#fff;
       display:inline-flex; align-items:center; justify-content:center; padding:12px 20px;
@@ -94,182 +100,209 @@
       text-decoration:none; color:var(--btn-fg); transition: all var(--speed) ease; font-size:12px;
     }
     .btn:hover{ transform:translateY(-2px) }
-    .btn-primary{ --btn-bg:var(--rojo); --btn-fg:#fff; --btn-bd:var(--rojo); background:var(--btn-bg); box-shadow:0 10px 28px rgba(206,0,0,.35) }
-    .btn-outline{ background:transparent }
-    .btn-outline:hover{ background:rgba(255,255,255,.1) }
-
-    /* Barra secciones */
-    .sections-bar{ background:#fff; border-top:1px solid #eee; border-bottom:1px solid #eee; }
-    .sections-bar .container{
-      max-width:var(--container); margin:0 auto; padding: clamp(14px, 3vw, 18px) 20px;
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;
-    }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; border:1.5px solid var(--black);
-      font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.04em; font-size:12px; color:var(--black);
-      text-decoration:none; transition: background var(--speed) ease, color var(--speed) ease, transform var(--speed) ease, border-color var(--speed) ease;
-    }
-    .chip:hover{ transform:translateY(-2px) }
-    .chip.is-active, .chip:focus-visible{ background:var(--black); color:#fff; border-color:var(--black); outline:none; }
+    .btn-primary{ --btn-bg:var(--accent); --btn-fg:#fff; --btn-bd:var(--accent); background:var(--btn-bg); box-shadow:0 10px 28px rgba(205,6,19,.35) }
+    .btn-outline{ background:transparent } .btn-outline:hover{ background:rgba(255,255,255,.1) }
 
     .section{ padding: clamp(28px, 6vw, 64px) 20px; }
     .container, .mag-container{ max-width:var(--container); margin:0 auto }
     .mag-container{ padding: clamp(28px, 6vw, 64px) 20px; }
 
-    /* ===== Grid genérico ===== */
-    .mag-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 40px); grid-auto-flow:dense; position:relative; padding-bottom:24px; margin-bottom:24px; }
-    .mag-grid::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:#e6e6e6; }
-    .mag-item{ display:block; text-decoration:none; color:inherit; transition:transform var(--speed) ease; }
-    .mag-item:hover{ transform:translateY(-6px) }
-    .mag-media{ aspect-ratio:4/3; background:#eaeaea; overflow:hidden; border-radius:16px; box-shadow:0 16px 36px rgba(0,0,0,.14); position:relative; transform:translateZ(0); transition: box-shadow var(--speed) ease; }
-    .mag--tall{ aspect-ratio:3/4; }
-    .mag-media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.02); transition: transform var(--speed) ease, filter var(--speed) ease; }
-    .mag-media::after{
-      content:""; position:absolute; inset:0; opacity:0; pointer-events:none;
-      background:
-        radial-gradient(60% 60% at 50% 60%, rgba(206,0,0,.22), transparent 70%),
-        linear-gradient(to bottom, transparent 60%, rgba(206,0,0,.18));
-      mix-blend-mode:multiply; transition:opacity var(--speed) ease;
+    /* ===== TÍTULO DE BLOQUE (rojo) ===== */
+    .mag-title{
+      font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.08em;
+      line-height:1; margin:0 0 16px; font-weight:900; color:var(--accent);
+      font-size: clamp(24px, 3vw, 40px);
     }
-    .mag-item:hover .mag-media{ box-shadow:0 26px 60px rgba(206,0,0,.28), 0 12px 28px rgba(0,0,0,.18); }
-    .mag-item:hover .mag-media img{ transform:scale(1.06); filter:saturate(1.02) contrast(1.06); }
-    .mag-item:hover .mag-media::after{ opacity:1; }
-    .mag-meta{ margin-top:12px; font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.04em; font-weight:900; font-size:12px; opacity:.85; display:inline-flex; gap:8px; align-items:center; }
-    .mag-meta::before{ content:""; width:10px; height:10px; border-radius:999px; background:var(--rojo); }
-    .mag-title{ margin:8px 0 0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.01em; line-height:1.06; font-size:clamp(22px, 2.2vw, 40px); max-width:28ch; }
-    .mag-title--lg{ font-size:clamp(24px, 3vw, 52px); max-width:34ch; }
-
-    @media (max-width:1200px){
-      .mag-grid{ grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width:720px){
-      .mag-grid{ grid-template-columns:1fr; }
-      .feature-title{ font-size:clamp(28px, 7vw, 46px); max-width:32ch; }
-      .mag-title{ font-size:clamp(22px, 5.5vw, 36px); }
-      .mag-title--lg{ font-size:clamp(24px, 6.2vw, 42px); }
-    }
+    .mag-title strong{ font-weight:900 }
 
     /* ===== Reveal ===== */
     .reveal{ opacity:0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.65,.2,1); }
     .reveal.is-in{ opacity:1; transform:none; }
 
-    /* Footer */
-    .site-footer{ background:var(--black); color:#e9e9e9; padding:40px 20px; margin-top:40px; }
-    .site-footer .container{ display:flex; gap:20px; justify-content:space-between; align-items:center; flex-wrap:wrap }
-    .site-footer a{ color:#e9e9e9; text-decoration:none; opacity:.9 }
-    .site-footer a:hover{ opacity:1 }
-
-    /* === Carrusel EDICIONES === */
-    .ed-controls{ display:flex; align-items:center; justify-content:center; gap:12px; margin: 8px 0 18px; }
-    .ed-dots{ display:flex; gap:8px; align-items:center }
-    .ed-dots button{ width:8px; height:8px; border-radius:50%; border:0; background:#d8d8d8; cursor:pointer; }
-    .ed-dots button[aria-current="true"]{ background:var(--rojo); }
-
+    /* === Carrusel EDICIÓN ACTUAL === */
     .ed-wrap{ position:relative; max-width:var(--container); margin:0 auto; }
-
     .ed-arrow{
-      position:absolute; top:50%; transform:translateY(-50%);
-      z-index:5; width:44px; height:44px; border-radius:999px; border:0;
-      display:grid; place-items:center; cursor:pointer;
-      background:rgba(4,9,12,.92); color:#fff;
-      box-shadow:0 12px 28px rgba(0,0,0,.22);
-      transition:transform .2s ease, opacity .2s ease;
+      position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+      width:44px; height:44px; border-radius:999px; border:0; display:grid; place-items:center; cursor:pointer;
+      background:rgba(13,13,13,.92); color:#fff; box-shadow:0 12px 28px rgba(0,0,0,.22); transition:transform .2s ease, opacity .2s ease;
     }
-    .ed-arrow:hover{ transform:translateY(-50%) scale(1.05); }
-    .ed-arrow:disabled{ opacity:.45; cursor:not-allowed; }
-    .ed-arrow.ed-prev{ left:6px; }
-    .ed-arrow.ed-next{ right:6px; }
-    @media (max-width: 900px){
-      .ed-arrow{ width:38px; height:38px; }
+    .ed-arrow:hover{ transform:translateY(-50%) scale(1.05) }
+    .ed-arrow:disabled{ opacity:.45; cursor:not-allowed }
+    .ed-prev{ left:6px } .ed-next{ right:6px }
+    @media (max-width: 900px){ .ed-arrow{ width:38px; height:38px } }
+
+    .ed-strip{
+      --grid-cols:4;
+      display:flex; gap:var(--gap);
+      overflow:auto; scroll-snap-type:x mandatory; border-radius:22px;
+      padding: 0 var(--edge); scroll-padding-left: var(--edge); scroll-padding-right: var(--edge);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width:none; -ms-overflow-style:none;
     }
+    .ed-strip::-webkit-scrollbar{ display:none }
 
-    /* ATENCIÓN: sin padding real; usamos scroll-padding, y el padding va en el slide */
-    .ed-carousel{
-      display:flex;
-      overflow:hidden;
-      scroll-behavior:smooth;
-      scroll-snap-type:x mandatory;
-      border-radius:22px;
-
-      /* compensa el gutter sin achicar el viewport */
-      scroll-padding-left: var(--edge);
-      scroll-padding-right: var(--edge);
-    }
-
-    .ed-slide{
-      flex: 0 0 100%;
+    .ed-card{
       scroll-snap-align:start;
-      box-sizing:border-box;
-
-      /* gutter interior del slide: así NO se ve la slide siguiente */
-      padding-left: var(--edge);
-      padding-right: var(--edge);
+      flex: 0 0 calc((100% - (var(--grid-cols) - 1) * var(--gap)) / var(--grid-cols));
+      color:inherit; text-decoration:none; transition: transform var(--speed) ease;
     }
+    .ed-card:hover{ transform: translateY(-4px) }
 
-    .ed-header{
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-      margin: 0 0 clamp(14px,2.5vw,18px);
-      padding-top: clamp(20px, 3.5vw, 34px);
-    }
-    .ed-header h3{
-      font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.04em;
-      font-size: clamp(18px, 1.6vw, 22px); margin:0;
-    }
-    .ed-ver{ font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.04em; font-size:12px; text-decoration:none; color:var(--black); opacity:.8; }
-    .ed-ver:hover{ opacity:1 }
+    @media (max-width:1200px){ .ed-strip{ --grid-cols:3 } }
+    @media (max-width:1024px){ .ed-strip{ --grid-cols:2 } }
+    @media (max-width:640px){ .ed-strip{ --grid-cols:1 } }
 
-    .ed-grid{
-      display:grid;
-      gap: clamp(22px, 3vw, 36px);
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-    @media (max-width:1200px){ .ed-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); } }
-    @media (max-width:1024px){ .ed-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
-    @media (max-width:640px){ .ed-grid{ grid-template-columns: 1fr; } }
-
-    .ed-card{ display:block; color:inherit; text-decoration:none; transition: transform var(--speed) ease; }
-    .ed-card:hover{ transform: translateY(-4px); }
-
-    .ed-media{
-      width:100%;
-      aspect-ratio: 3 / 4;
-      border-radius: 28px; overflow:hidden; background:#eee;
-      box-shadow: 0 26px 60px rgba(206,0,0,.18), 0 12px 28px rgba(0,0,0,.12);
+    .ed-media{ width:100%; aspect-ratio: 3 / 4; border-radius: 28px; overflow:hidden; background:#eee;
+      box-shadow: 0 26px 60px rgba(205,6,19,.18), 0 12px 28px rgba(0,0,0,.12);
     }
     .ed-media img{ width:100%; height:100%; object-fit:cover; display:block }
+    .ed-meta{
+      margin-top:10px; font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.04em;
+      font-weight:900; font-size:12px; color:var(--accent); display:flex; align-items:center; gap:8px;
+    }
+    .ed-dot{ width:8px; height:8px; border-radius:999px; background:var(--accent); display:inline-block }
 
-    .ed-meta{ margin-top:14px; font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.04em; font-weight:900; font-size:12px; opacity:.85; display:flex; align-items:center; gap:8px; }
-    .ed-dot{ width:8px; height:8px; border-radius:999px; background:var(--rojo); display:inline-block }
-
+    /* >>> TITULOS DE NOTAS EN NEGRO <<< */
     .ed-title{
-      margin:8px 0 0;
-      font-family:var(--h-sans);
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.01em;
-      line-height:1.06;
-      font-size: clamp(20px, 2.0vw, 30px);
-      display:-webkit-box;
-      -webkit-line-clamp:3;
-      -webkit-box-orient:vertical;
+      margin:6px 0 0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase;
+      letter-spacing:.005em; line-height:1.04; color:var(--black);
+      font-size: clamp(18px, 1.8vw, 24px);
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; word-break:break-word;
+    }
+    @media (max-width:640px){ .ed-title{ font-size: clamp(18px, 5vw, 22px) } }
+
+    /* ===== ¿QUIÉNES SOMOS? ===== */
+    .about{
+      position:relative; isolation:isolate;
+      min-height: clamp(460px, 56vh, 720px);
+      padding: clamp(72px, 10vw, 140px) 20px clamp(96px, 12vw, 170px);
       overflow:hidden;
-      word-break:break-word;
+      background: transparent;
     }
-    @media (max-width:640px){
-      .ed-title{ font-size: clamp(18px, 5.2vw, 26px); }
+    .about .container{
+      position:relative; z-index:2;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:clamp(12px,1.4vw,20px);
+      text-align:center; margin:0 auto;
     }
+    /* Fondo tipeado centrado */
+    .type-bg{ position:absolute; inset:0; z-index:1; pointer-events:none; user-select:none; overflow:hidden; }
+    .type-screen{
+      position:absolute; inset:0; padding: clamp(28px,6vw,64px) 20px;
+      font-family: var(--body-serif);
+      font-size: clamp(16px,1.6vw,22px); line-height:1.8;
+      white-space: pre-wrap; color:rgba(13,13,13,.7);
+      max-width: min(1100px, 92vw); margin: 0 auto; text-align:center;
+    }
+    .type-screen::after{
+      content:""; display:inline-block; width:2px; height:1em; background:rgba(13,13,13,.7);
+      vertical-align:-0.15em; margin-left:2px; animation: blink 1s steps(1,end) infinite;
+    }
+    @keyframes blink{ 50%{ opacity:0 } }
+
+    .about .mag-title{
+      color:var(--accent);
+      font-size: clamp(34px, 5vw, 72px);
+      margin-bottom: clamp(6px, 1.4vw, 12px);
+      text-shadow:
+        0 14px 46px rgba(13,13,13,.20),
+        0 4px 14px rgba(13,13,13,.12);
+      width:100%;
+    }
+    .about .btn{
+      font-size: clamp(12px,1.1vw,16px);
+      padding: clamp(12px,.9vw,16px) clamp(20px,1.6vw,28px);
+    }
+    .about .btn-primary{
+      box-shadow:
+        0 18px 40px rgba(205,6,19,.25),
+        0 8px 24px rgba(13,13,13,.16);
+    }
+    .about .btn-primary:hover{
+      box-shadow:
+        0 22px 54px rgba(205,6,19,.28),
+        0 12px 28px rgba(13,13,13,.18);
+    }
+
+    /* ===== NEWSLETTER ===== */
+    .newsletter{
+      padding: clamp(48px, 8vw, 96px) 20px;
+      background: #fff;
+    }
+    .newsletter .container{ max-width: 840px; text-align:center; }
+    /* >>> NUEVO: mismo tamaño que ¿Quiénes somos? (y mismo glow) <<< */
+    .newsletter .mag-title{
+      font-size: clamp(34px, 5vw, 72px);
+      margin-bottom: clamp(6px, 1.4vw, 12px);
+      text-shadow: 0 14px 46px rgba(13,13,13,.20), 0 4px 14px rgba(13,13,13,.12);
+    }
+    .nl-desc{ margin: 6px auto 18px; font-size: clamp(15px,1.4vw,18px); color: #2b2b2b; }
+    .nl-form{ display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap; }
+    .nl-form input[type="email"]{
+      min-width: min(540px, 82vw); padding:14px 18px; border-radius:999px; border:2px solid var(--accent);
+      font-family:var(--body-serif); font-size:16px; outline:none; transition:box-shadow .2s ease,border-color .2s ease;
+    }
+    .nl-form input[type="email"]:focus{ box-shadow:0 10px 28px rgba(205,6,19,.18); border-color:var(--accent) }
+    .nl-msg{ margin-top:10px; font-size:14px; color: var(--accent); min-height:1.2em; }
+    .visually-hidden{
+      position:absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px);
+      white-space:nowrap; border:0; padding:0; margin:-1px;
+    }
+
+    /* ===== CONTACTANOS ===== */
+    .contact{ padding: clamp(40px, 7vw, 88px) 20px; background:#fafafa; }
+    .contact .container{ max-width:960px }
+    .contact-card{
+      display:flex; gap: clamp(12px,2vw,18px); align-items:center; justify-content:space-between; flex-wrap:wrap;
+      background:#fff; border:1px solid #e9e9e9; border-radius:22px;
+      padding: clamp(18px,3vw,28px); box-shadow:0 16px 38px rgba(0,0,0,.06);
+    }
+    .contact-card h3{
+      margin:0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.06em;
+      color:var(--accent); font-size: clamp(18px,1.8vw,24px);
+    }
+    .contact-card p{ margin:0; color:#333; font-size: clamp(14px,1.2vw,16px) }
+    .contact-actions{ display:flex; gap:12px; align-items:center }
+
+    /* ===== Cierre (más bajo + links rojos y tamaño del menú) ===== */
+    .closing-banner{
+      position: relative; min-height: clamp(360px, 60vh, 720px);
+      background: var(--black); color: #fff; border-radius: 0; margin: 0;
+      display: grid; place-items: center; box-shadow: none; overflow: hidden;
+    }
+    .cb-corner{
+      position: absolute; display: flex; gap: clamp(10px, 1.8vw, 22px);
+      font-family: var(--h-sans); font-weight: 900; letter-spacing: .04em; text-transform: uppercase;
+      font-size: clamp(12px, .9vw, 14px); padding: 18px 24px;
+    }
+    .cb-corner a{
+      color: var(--accent); text-decoration: none; opacity: .95;
+      transition: opacity .2s ease, transform .2s ease; white-space: nowrap;
+    }
+    .cb-corner a:hover{ opacity:1; transform: translateY(-1px); }
+    .cb-top-left{  top: 0; left: 0; }
+    .cb-top-right{ top: 0; right: 0; }
+    .cb-bot-left{  bottom: 36px; left: 0; }
+    .cb-bot-right{ bottom: 36px; right: 0; }
+
+    .closing-logo{ width: clamp(200px, 26vw, 420px); height: auto; display: block; filter: drop-shadow(0 10px 30px rgba(0,0,0,.45)); user-select: none; }
+    .cb-copy{ position:absolute; left:50%; bottom:10px; transform:translateX(-50%); font-size:12px; opacity:.7; font-family:var(--body-serif); white-space:nowrap; color: var(--accent) }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header class="site-header" id="siteHeader" role="banner" aria-label="Cabecera del sitio">
     <nav class="nav" aria-label="Navegación principal">
-      <div class="brand"><a href="#">LA TUERTA</a></div>
+      <div class="brand"><a href="index.html" data-transition>LA TUERTA</a></div>
       <div class="spacer"></div>
       <div class="menu" role="menubar">
-        <a role="menuitem" href="#" aria-current="page">Home</a>
-        <a role="menuitem" href="nota-cultura.html" data-transition>Notas</a>
-        <a role="menuitem" href="sobre-nosotros.html" data-transition>Sobre nosotros</a>
+        <a role="menuitem" href="index.html" aria-current="page" data-transition>Home</a>
+        <a role="menuitem" href="#ediciones">Ediciones</a>
+        <a role="menuitem" href="#quienes-somos">¿Quiénes somos?</a>
+        <a role="menuitem" href="audiovisual.html" data-transition>Audiovisual</a>
+        <a role="menuitem" href="#newsletter">Newsletter</a>
+        <a role="menuitem" href="contacto.html" data-transition>Contacto</a>
       </div>
     </nav>
   </header>
@@ -281,166 +314,125 @@
       <p class="reveal">Crónicas, entrevistas y cultura contemporánea. Periodismo con mirada editorial.</p>
       <div class="cta reveal">
         <a class="btn btn-primary" href="#ediciones">Ver ediciones</a>
-        <a class="btn btn-outline" href="#cultura">Últimas notas</a>
+        <a class="btn btn-outline" href="nota-cultura.html" data-transition>Últimas notas</a>
       </div>
     </div>
   </section>
 
-  <!-- Barra de secciones -->
-  <div class="sections-bar" aria-label="Secciones">
-    <div class="container" role="navigation" aria-label="Secciones">
-      <a class="chip is-active" href="#ediciones">Ediciones</a>
-      <a class="chip" href="cultura.html">Cultura</a>
-      <a class="chip" href="#musica">Música</a>
-      <a class="chip" href="#politica">Política</a>
-    </div>
-  </div>
-
-  <!-- ===== EDICIONES ===== -->
+  <!-- ===== EDICIÓN ACTUAL ===== -->
   <section class="mag-container" id="ediciones">
-    <h2 class="reveal" style="font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.06em; font-size:clamp(20px,2vw,24px); margin:0 0 18px">
-      Ediciones
-    </h2>
+    <h2 class="mag-title reveal"><strong>Edición actual · Septiembre 2025</strong></h2>
 
-    <!-- Dots arriba -->
-    <div class="ed-controls">
-      <div class="ed-dots" aria-label="Indicadores del carrusel"></div>
-    </div>
+    <div class="ed-wrap" aria-roledescription="carousel" aria-label="Notas de la edición actual">
+      <button class="ed-arrow ed-prev" aria-label="Nota anterior">‹</button>
 
-    <div class="ed-wrap">
-      <button class="ed-arrow ed-prev" aria-label="Edición anterior">‹</button>
-
-      <div class="ed-carousel" id="edCarousel" tabindex="0" aria-roledescription="carousel" aria-label="Carrusel de Ediciones">
-        <!-- Edición 1 -->
-        <section class="ed-slide" aria-label="Edición 1">
-          <header class="ed-header">
-            <h3>Edición 1 · Septiembre 2025</h3>
-            <a href="#" class="ed-ver">Ver edición completa</a>
-          </header>
-          <div class="ed-grid">
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Cultura</div>
-              <h4 class="ed-title">Miradas sobre el archivo</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1482575832494-771f74bf6857?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Cultura</div>
-              <h4 class="ed-title">Ensayo visual: bordes y cuerpos</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Cultura</div>
-              <h4 class="ed-title">Narrativas desde el espacio público</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Fotografía</div>
-              <h4 class="ed-title">Retratos en foco</h4>
-            </a>
-          </div>
-        </section>
-
-        <!-- Edición 2 -->
-        <section class="ed-slide" aria-label="Edición 2">
-          <header class="ed-header">
-            <h3>Edición 2 · Agosto 2025</h3>
-            <a href="#" class="ed-ver">Ver edición completa</a>
-          </header>
-          <div class="ed-grid">
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Entrevistas</div>
-              <h4 class="ed-title">Conversaciones con quienes hacen</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Arte</div>
-              <h4 class="ed-title">Estudio Material: lo orgánico</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Cultura</div>
-              <h4 class="ed-title">El archivo vivo</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Música</div>
-              <h4 class="ed-title">Ritmos periféricos</h4>
-            </a>
-          </div>
-        </section>
-
-        <!-- Edición 3 -->
-        <section class="ed-slide" aria-label="Edición 3">
-          <header class="ed-header">
-            <h3>Edición 3 · Julio 2025</h3>
-            <a href="#" class="ed-ver">Ver edición completa</a>
-          </header>
-          <div class="ed-grid">
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Arte</div>
-              <h4 class="ed-title">Barro: nuestra conexión con la arcilla</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1575425029361-d0cbe16db19a?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Arquitectura</div>
-              <h4 class="ed-title">Casa Soleto: paraíso remoto</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1584861712426-ad9e492bced5?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Arquitectura · EEUU</div>
-              <h4 class="ed-title">La arquitectura del deseo</h4>
-            </a>
-            <a class="ed-card" href="#">
-              <figure class="ed-media"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
-              <div class="ed-meta"><span class="ed-dot"></span> Viajes</div>
-              <h4 class="ed-title">Itinerarios íntimos</h4>
-            </a>
-          </div>
-        </section>
+      <div class="ed-strip" id="edStrip" tabindex="0">
+        <!-- 6 TARJETAS -->
+        <a class="ed-card" href="#">
+          <figure class="ed-media"><img src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
+          <div class="ed-meta"><span class="ed-dot"></span> Cultura</div>
+          <h4 class="ed-title">Miradas sobre el archivo</h4>
+        </a>
+        <a class="ed-card" href="#">
+          <figure class="ed-media"><img src="https://images.unsplash.com/photo-1482575832494-771f74bf6857?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
+          <div class="ed-meta"><span class="ed-dot"></span> Cultura</div>
+          <h4 class="ed-title">Ensayo visual: bordes y cuerpos</h4>
+        </a>
+        <a class="ed-card" href="#">
+          <figure class="ed-media"><img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
+          <div class="ed-meta"><span class="ed-dot"></span> Cultura</div>
+          <h4 class="ed-title">Narrativas desde el espacio público</h4>
+        </a>
+        <a class="ed-card" href="#">
+          <figure class="ed-media"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
+          <div class="ed-meta"><span class="ed-dot"></span> Fotografía</div>
+          <h4 class="ed-title">Retratos en foco</h4>
+        </a>
+        <a class="ed-card" href="#">
+          <figure class="ed-media"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
+          <div class="ed-meta"><span class="ed-dot"></span> Crónica</div>
+          <h4 class="ed-title">Noches de feria: ciudad encendida</h4>
+        </a>
+        <a class="ed-card" href="#">
+          <figure class="ed-media"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
+          <div class="ed-meta"><span class="ed-dot"></span> Música</div>
+          <h4 class="ed-title">Entrevista: la cocina de un disco</h4>
+        </a>
       </div>
 
-      <button class="ed-arrow ed-next" aria-label="Edición siguiente">›</button>
-    </div>
-  </section>
-  <!-- ===== FIN EDICIONES ===== -->
-
-  <!-- Cultura -->
-  <section class="mag-container" id="cultura">
-    <h2 style="font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.06em; font-size:clamp(20px,2vw,24px); margin:0 0 18px" class="reveal">Cultura</h2>
-    <div class="mag-grid">
-      <a class="mag-item mag--span2y reveal" href="#">
-        <figure class="mag-media mag--tall"><img src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?q=80&w=2000&auto=format&fit=crop" alt=""></figure>
-        <div class="mag-meta">Cultura</div>
-        <h3 class="mag-title mag-title--Ig">Miradas sobre el archivo</h3>
-      </a>
-      <a class="mag-item mag--span2y reveal" href="#">
-        <figure class="mag-media mag--tall"><img src="https://images.unsplash.com/photo-1482575832494-771f74bf6857?q=80&w=2000&auto=format&fit=crop" alt=""></figure>
-        <div class="mag-meta">Cultura</div>
-        <h3 class="mag-title mag-title--Ig">Ensayo visual: bordes y cuerpos</h3>
-      </a>
-      <a class="mag-item mag--span2y reveal" href="#">
-        <figure class="mag-media mag--tall"><img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=2000&auto=format&fit=crop" alt=""></figure>
-        <div class="mag-meta">Cultura</div>
-        <h3 class="mag-title mag-title--Ig">Narrativas desde el espacio público</h3>
-      </a>
+      <button class="ed-arrow ed-next" aria-label="Nota siguiente">›</button>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="site-footer" role="contentinfo">
+  <!-- ===== ¿QUIÉNES SOMOS? ===== -->
+  <section class="about" id="quienes-somos" aria-label="¿Quiénes somos?">
+    <div class="type-bg" aria-hidden="true">
+      <div class="type-screen" id="typewriter"></div>
+    </div>
+
     <div class="container">
-      <div style="font-family:var(--h-sans); font-weight:800; letter-spacing:.06em; text-transform:uppercase">La Tuerta</div>
-      <div style="opacity:.8; font-size:14px">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
-      <nav style="display:flex; gap:16px">
-        <a href="#">Instagram</a>
-        <a href="#">YouTube</a>
-        <a href="#">Contacto</a>
-      </nav>
+      <h2 class="mag-title"><strong>¿Quiénes somos?</strong></h2>
+      <a class="btn btn-primary" href="sobre-nosotros.html" data-transition>Conocer más</a>
     </div>
-  </footer>
+  </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <section class="newsletter" id="newsletter" aria-labelledby="nlTitle">
+    <div class="container">
+      <h2 id="nlTitle" class="mag-title"><strong>Newsletter</strong></h2>
+      <p class="nl-desc">Recibí en tu correo nuestras próximas ediciones, avances y recomendaciones. Sin spam, solo cosas buenas.</p>
+      <form class="nl-form" id="newsletterForm" novalidate>
+        <label for="nlEmail" class="visually-hidden">Correo electrónico</label>
+        <input type="email" id="nlEmail" name="email" placeholder="tu@correo.com" required />
+        <button type="submit" class="btn btn-primary">Suscribirme</button>
+      </form>
+      <div class="nl-msg" id="nlMsg" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACTANOS ===== -->
+  <section class="contact" id="contacto-home" aria-labelledby="ctTitle">
+    <div class="container">
+      <div class="contact-card">
+        <div>
+          <h3 id="ctTitle">¿Hablamos?</h3>
+          <p>Si querés proponer una nota, colaborar o escribirnos, estamos del otro lado.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="contacto.html" data-transition>Contactanos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CIERRE ===== -->
+  <section class="closing-banner" aria-label="Cierre del sitio">
+    <nav class="cb-corner cb-top-left" aria-label="Links informativos">
+      <a href="#">Contribuidores</a>
+      <a href="#">Legal / Privacidad</a>
+      <a href="audiovisual.html" data-transition>Tienda</a>
+      <a href="sobre-nosotros.html" data-transition>Sobre nosotros</a>
+    </nav>
+
+    <nav class="cb-corner cb-top-right" aria-label="Redes sociales">
+      <a href="#" rel="noopener">Instagram</a>
+      <a href="#" rel="noopener">TikTok</a>
+      <a href="#" rel="noopener">LinkedIn</a>
+    </nav>
+
+    <nav class="cb-corner cb-bot-left" aria-label="Secciones">
+      <a href="#ediciones">Edición actual</a>
+      <a href="audiovisual.html" data-transition>Audiovisual</a>
+    </nav>
+
+    <nav class="cb-corner cb-bot-right" aria-label="Contacto">
+      <a href="#newsletter">Newsletter</a>
+      <a href="contacto.html" data-transition>Contacto</a>
+    </nav>
+
+    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
+  </section>
 
   <script>
     // Año
@@ -451,65 +443,95 @@
 
     // Header sticky
     const header = document.getElementById('siteHeader');
-    const onScroll = () => { if (window.scrollY > 12) header?.classList.add('is-sticky'); else header?.classList.remove('is-sticky'); };
-    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+    const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
 
-    // Reveal on scroll
+    // Reveal
     const io = new IntersectionObserver((entries)=>{
       entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }});
     }, {threshold:.12});
     document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay = (80*i)+'ms'; io.observe(el); });
 
-    // ===== Carrusel =====
-    const $carousel = document.getElementById('edCarousel');
-    const slides = [...$carousel.querySelectorAll('.ed-slide')];
+    // Carrusel por tarjeta
+    const strip = document.getElementById('edStrip');
+    const cards = [...strip.querySelectorAll('.ed-card')];
     const prev = document.querySelector('.ed-prev');
     const next = document.querySelector('.ed-next');
-    const dotsWrap = document.querySelector('.ed-dots');
-    let idx = 0;
+    let idx = 0, step = 0;
 
-    slides.forEach((_, i)=>{
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('aria-label', `Ir a Edición ${i+1}`);
-      if(i===0) b.setAttribute('aria-current','true');
-      b.addEventListener('click', ()=> goTo(i));
-      dotsWrap.appendChild(b);
-    });
-
-    function updateUI(){
-      prev.disabled = idx===0;
-      next.disabled = idx===slides.length-1;
-      dotsWrap.querySelectorAll('button').forEach((d,i)=>{
-        if(i===idx){ d.setAttribute('aria-current','true'); } else { d.removeAttribute('aria-current'); }
-      });
+    function measureStep(){
+      const a = cards[0], b = cards[1];
+      if (a && b) return b.offsetLeft - a.offsetLeft;
+      if (!a) return 0;
+      const rect = a.getBoundingClientRect();
+      const styles = getComputedStyle(strip);
+      const gap = parseFloat(styles.gap || styles.columnGap || 0);
+      return rect.width + gap;
     }
-
-    function goTo(i){
-      idx = Math.max(0, Math.min(slides.length-1, i));
-      slides[idx].scrollIntoView({ behavior:'smooth', inline:'start', block:'nearest' });
-      updateUI();
-    }
-
-    prev.addEventListener('click', ()=> goTo(idx-1));
-    next.addEventListener('click', ()=> goTo(idx+1));
-
+    const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+    function goTo(i){ idx = clamp(i, 0, cards.length - 1); strip.scrollTo({ left: idx * step, behavior:'smooth' }); updateUI(); }
+    function updateFromScroll(){ idx = Math.round(strip.scrollLeft / step); updateUI(); }
+    function updateUI(){ prev.disabled = idx <= 0; next.disabled = idx >= cards.length - 1; }
+    prev.addEventListener('click', ()=> goTo(idx - 1));
+    next.addEventListener('click', ()=> goTo(idx + 1));
     let ticking = false;
-    $carousel.addEventListener('scroll', ()=>{
-      if(!ticking){
-        window.requestAnimationFrame(()=>{
-          const w = $carousel.clientWidth;
-          idx = Math.round($carousel.scrollLeft / w);
-          updateUI();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
+    strip.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(()=>{ updateFromScroll(); ticking = false; }); ticking = true; }});
+    strip.addEventListener('keydown', (e)=>{ if(e.key === 'ArrowRight') goTo(idx + 1); if(e.key === 'ArrowLeft') goTo(idx - 1); });
+    window.addEventListener('resize', ()=>{ const old = step; step = measureStep(); if (old && step) strip.scrollLeft = idx * step; });
+    step = measureStep(); updateUI();
 
-    $carousel.addEventListener('keydown', (e)=>{
-      if(e.key === 'ArrowRight') goTo(idx+1);
-      if(e.key === 'ArrowLeft') goTo(idx-1);
+    // Fondo tipeado (¿Quiénes somos?) con saltos 10/9 palabras
+    const typeTarget = document.getElementById('typewriter');
+    const RAW_TEXT = `Somos una revista independiente con edición cuidada. Publicamos crónicas, entrevistas y ensayos visuales con una mirada curatorial. Acompañamos procesos, trabajamos con autorxs y nos tomamos el tiempo para contar mejor.`;
+
+    function makeChunkedText(text){
+      const words = text.split(/\s+/);
+      let out = [];
+      let i = 0, chunk = 10; // alterna 10 / 9
+      while(i < words.length){
+        out.push(words.slice(i, i+chunk).join(' '));
+        i += chunk;
+        chunk = (chunk === 10) ? 9 : 10;
+      }
+      return out.join('\n');
+    }
+    const TYPE_TEXT = makeChunkedText(RAW_TEXT);
+
+    let tIdx = 0, typing = false, visible = false;
+    function typeLoop(){
+      if(!visible) return;
+      typing = true;
+      typeTarget.textContent += TYPE_TEXT.charAt(tIdx++);
+      if(tIdx >= TYPE_TEXT.length){
+        tIdx = 0;
+        typeTarget.textContent = "";
+        setTimeout(typeLoop, 700);
+        return;
+      }
+      const speed = 22 + Math.random()*48;
+      setTimeout(typeLoop, speed);
+    }
+    const aboutObs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        visible = e.isIntersecting;
+        if(visible && !typing){ typeLoop(); }
+      });
+    }, {threshold:.2});
+    aboutObs.observe(document.getElementById('quienes-somos'));
+
+    // Newsletter demo (validación simple)
+    const nlForm = document.getElementById('newsletterForm');
+    const nlEmail = document.getElementById('nlEmail');
+    const nlMsg = document.getElementById('nlMsg');
+    nlForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      if(!nlEmail.checkValidity()){
+        nlMsg.textContent = 'Ingresá un correo válido para suscribirte.';
+        nlEmail.focus();
+        return;
+      }
+      nlMsg.textContent = '¡Gracias por suscribirte! Te llegará un correo de confirmación.';
+      nlEmail.value = '';
     });
   </script>
 </body>
