@@ -36,7 +36,7 @@
 
     img{max-width:100%; display:block}
 
-    /* ===== HEADER (igual sitio) ===== */
+    /* Header */
     .site-header{
       position:fixed; inset:0 0 auto 0; z-index:20;
       background:rgba(255,255,255,0); color:var(--accent);
@@ -64,15 +64,14 @@
     .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
     .menu a[aria-current="page"]::after{ transform:scaleX(1) }
 
-    /* ===== HERO (grande como la home) ===== */
+    /* Hero */
     .hero{
       min-height: clamp(520px, 82svh, 920px);
       position:relative; display:grid; place-items:center; text-align:center; color:var(--accent);
       padding: clamp(36px, 8vw, 80px) 20px;
       background:
         var(--hero-overlay),
-        /* Para usar imagen de fondo:
-           url("img/contacto.jpg") center 40% / cover no-repeat, */
+        url("img/contacto.jpg") center 40% / cover no-repeat, /* ← imagen activada */
         radial-gradient(100% 120% at 0% 0%, rgba(205,6,19,.14), transparent 60%),
         #0b0b0b;
     }
@@ -82,10 +81,10 @@
       text-shadow:0 14px 44px rgba(0,0,0,.50);
     }
 
-    /* ===== FORM CARD (única y con mismo aire arriba/abajo) ===== */
+    /* Formulario - card */
     .form-card{
       max-width: min(1100px, 94vw);
-      margin: clamp(36px, 7vw, 72px) auto; /* << aire simétrico arriba/abajo */
+      margin: clamp(36px, 7vw, 72px) auto;
       background:#fff; border:1px solid #eee; border-radius:26px;
       padding: clamp(26px, 4vw, 44px);
       box-shadow:0 26px 60px rgba(0,0,0,.10);
@@ -124,7 +123,7 @@
     .footnote{ font-size:14px; color:#444 }
     .footnote a{ color:var(--accent); text-decoration:none }
 
-    /* ===== CIERRE (igual home) ===== */
+    /* Cierre */
     .closing-banner{
       position: relative; min-height: clamp(360px, 60vh, 720px);
       background: var(--black); color: #fff; border-radius: 0; margin: 0;
@@ -162,12 +161,12 @@
     </nav>
   </header>
 
-  <!-- HERO -->
+  <!-- Hero -->
   <section class="hero" aria-label="Contacto">
     <h1>Contacto</h1>
   </section>
 
-  <!-- Form card principal -->
+  <!-- Formulario card principal -->
   <section class="form-card" aria-label="Formulario de contacto">
     <h2>Escribinos ahora</h2>
     <p>Contanos el motivo y de qué trata el mensaje. Te respondemos a la brevedad.</p>
@@ -224,7 +223,7 @@
     </form>
   </section>
 
-  <!-- CIERRE igual home -->
+  <!-- Cierre -->
   <section class="closing-banner" aria-label="Cierre del sitio">
     <nav class="cb-corner cb-top-left" aria-label="Links informativos">
       <a href="#" onclick="return false;">Contribuidores</a>
@@ -250,7 +249,7 @@
       <a href="contacto.html" aria-current="page">Contacto</a>
     </nav>
 
-    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <img class="closing-logo" src="img/Logo.png" alt="La Tuerta">
     <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
   </section>
 
@@ -261,7 +260,7 @@
     // Fade-in
     window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
 
-    // Header sticky
+    // Header
     const header = document.getElementById('siteHeader');
     const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
     onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
@@ -277,9 +276,9 @@
       setTimeout(()=>{ window.location.href = url; }, 220);
     });
 
-    // ===== Envíos =====
+    // Dato - contacto
     const EMAIL_DEST = "hola@latuerta.media";
-    const WA_NUM = "549112223333"; // sin + ni espacios
+    const WA_NUM = "549112223333";
 
     function v(id){ return document.getElementById(id).value.trim(); }
     function enc(s){ return encodeURIComponent(s); }

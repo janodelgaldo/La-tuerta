@@ -28,7 +28,7 @@
     body.is-ready{opacity:1}
     img{max-width:100%; display:block}
 
-    /* ===== HEADER (igual al resto del sitio) ===== */
+    /* Header */
     .site-header{
       position:fixed; inset:0 0 auto 0; z-index:20;
       background:rgba(255,255,255,0); color:var(--accent);
@@ -56,7 +56,7 @@
     .menu a:hover{opacity:1} .menu a:hover::after{transform:scaleX(1)}
     .menu a[aria-current="page"]::after{transform:scaleX(1)}
 
-    /* ===== HERO NOTA (como estaba) ===== */
+    /* Hero - Nota*/
     .article-hero{
       min-height:100svh; display:grid; grid-template-columns: 1fr 1fr;
       position:relative; color:#fff; background:#000;
@@ -96,7 +96,7 @@
       color:#fff; opacity:.7
     }
 
-    /* ===== CONTENIDO ===== */
+    /* Contenido */
     .article{ max-width: min(1040px, 92vw); margin: clamp(36px,7vw,72px) auto; }
     .article p{ font-size:clamp(18px,2vw,22px); margin: 0 0 22px; }
     .article strong{ font-weight:700 }
@@ -118,7 +118,7 @@
     .reveal{ opacity:0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.65,.2,1); }
     .reveal.is-in{ opacity:1; transform:none; }
 
-    /* ===== TAGS ===== */
+    /* Tags */
     .tags{ margin: clamp(22px,4vw,36px) 0; display:flex; flex-wrap:wrap; gap:10px }
     .tag{
       display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
@@ -127,7 +127,7 @@
     }
     .tag::before{ content:"#"; opacity:.7 }
 
-    /* ===== NOTAS (final) ===== */
+    /* Notas */
     .related{ max-width: min(1400px, 94vw); margin: clamp(38px,8vw,90px) auto; }
     .related .kicker{
       display:inline-block; border:2px solid var(--accent); color:#000; padding:10px 16px; border-radius:999px;
@@ -158,7 +158,7 @@
     .headline{ margin: 6px 0 0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase; letter-spacing:.01em; line-height:1.06; font-size: clamp(22px, 2.2vw, 36px); }
     @media (max-width:720px){ .cards{ grid-template-columns: 1fr } }
 
-    /* ===== CIERRE IGUAL A LA HOME ===== */
+    /* Cierre */
     .closing-banner{
       position: relative; min-height: clamp(360px, 60vh, 720px);
       background: var(--black); color: #fff; border-radius: 0; margin: 0;
@@ -190,13 +190,13 @@
         <a role="menuitem" href="ediciones.html" data-transition>Ediciones</a>
         <a role="menuitem" href="sobre-nosotros.html" data-transition>¿Quiénes somos?</a>
         <a role="menuitem" href="audiovisual.html" data-transition>Audiovisual</a>
-        <a role="menuitem" href="index.html#newsletter" data-transition>Newsletter</a>
+        <a role="menuitem" href="newsletter.html" data-transition>Newsletter</a>
         <a role="menuitem" href="contacto.html" data-transition>Contacto</a>
       </div>
     </nav>
   </header>
 
-  <!-- HERO -->
+  <!-- Hero -->
   <section class="article-hero" aria-label="Cabecera de la nota">
     <div class="hero-left">
       <div>
@@ -234,7 +234,7 @@
     <h3 class="subhead">Pequeños rituales</h3>
     <p class="reveal">Los mapas cambian de noche. Zonas que de día son tránsito se transforman en <strong>pequeños rituales</strong> de encuentro. Un kiosco abierto hasta tarde, una ventana con música baja, la luz roja de un estudio fotográfico. Todo es señal. Todo convoca.</p>
 
-    <!-- TAGS -->
+    <!-- Tags -->
     <div class="tags">
       <span class="tag">Ciudad</span>
       <span class="tag">Crónica</span>
@@ -243,7 +243,7 @@
     </div>
   </article>
 
-  <!-- NOTAS -->
+  <!-- Notas -->
   <section class="related" aria-label="Notas">
     <span class="kicker">Notas</span>
     <div class="cards">
@@ -265,7 +265,7 @@
     </div>
   </section>
 
-  <!-- CIERRE (igual a la home) -->
+  <!-- Cierre -->
   <section class="closing-banner" aria-label="Cierre del sitio">
     <nav class="cb-corner cb-top-left" aria-label="Links informativos">
       <a href="#" onclick="return false;">Contribuidores</a>
@@ -291,7 +291,7 @@
       <a href="contacto.html" data-transition>Contacto</a>
     </nav>
 
-    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <img class="closing-logo" src="img/Logo.png" alt="La Tuerta">
     <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
   </section>
 
@@ -302,7 +302,7 @@
     // Fade-in
     window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
 
-    // Header sticky
+    // Header
     const header = document.getElementById('siteHeader');
     const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
     onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
@@ -318,7 +318,6 @@
       setTimeout(()=>{ window.location.href = url; }, 220);
     });
 
-    // Reveals
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
         if(e.isIntersecting){

@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>La Tuerta — Revista</title>
 
-  <!-- Tipografías -->
+  <!-- Tipografia -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* PALETA CLIENTE */
+      /* Paleta colores */
       --white:#FFFFFF; --black:#0D0D0D; --gris:#D0D0D0; --rojo:#CD0613;
       --accent: var(--rojo);
 
-      /* legacy */
+      /* Color - Bordo */
       --bordo:#590707; --rojo-oscuro:#A30404; --beige:#CDC7BD;
 
       --h-sans:"Inter Tight",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
@@ -41,7 +41,7 @@
 
     img{max-width:100%; display:block}
 
-    /* ===== HEADER ===== */
+    /* Header */
     .site-header{
       position:fixed; inset:0 0 auto 0; z-index:20;
       background:rgba(255,255,255,0); color:var(--accent);
@@ -70,7 +70,7 @@
     .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
     .menu a[aria-current="page"]::after{ transform:scaleX(1) }
 
-    /* ===== HERO ===== */
+    /* HERO */
     .hero{
       min-height:100svh; position:relative; display:grid; place-items:center; color:var(--accent);
     }
@@ -107,7 +107,7 @@
     .container, .mag-container{ max-width:var(--container); margin:0 auto }
     .mag-container{ padding: clamp(28px, 6vw, 64px) 20px; }
 
-    /* ===== TÍTULO DE BLOQUE (rojo) ===== */
+    /* Titulo de bloque - rojo */
     .mag-title{
       font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.08em;
       line-height:1; margin:0 0 16px; font-weight:900; color:var(--accent);
@@ -115,11 +115,11 @@
     }
     .mag-title strong{ font-weight:900 }
 
-    /* ===== Reveal ===== */
+    /*  Reveal  */
     .reveal{ opacity:0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.65,.2,1); }
     .reveal.is-in{ opacity:1; transform:none; }
 
-    /* === Carrusel EDICIÓN ACTUAL === */
+    /*  Carrusel - Edicion actual  */
     .ed-wrap{ position:relative; max-width:var(--container); margin:0 auto; }
     .ed-arrow{
       position:absolute; top:50%; transform:translateY(-50%); z-index:5;
@@ -162,7 +162,7 @@
     }
     .ed-dot{ width:8px; height:8px; border-radius:999px; background:var(--accent); display:inline-block }
 
-    /* >>> TITULOS DE NOTAS EN NEGRO <<< */
+    /* Titulos de notas */
     .ed-title{
       margin:6px 0 0; font-family:var(--h-sans); font-weight:900; text-transform:uppercase;
       letter-spacing:.005em; line-height:1.04; color:var(--black);
@@ -171,13 +171,22 @@
     }
     @media (max-width:640px){ .ed-title{ font-size: clamp(18px, 5vw, 22px) } }
 
-    /* ===== ¿QUIÉNES SOMOS? ===== */
+    /* ¿Quienes somos? */
     .about{
       position:relative; isolation:isolate;
       min-height: clamp(460px, 56vh, 720px);
       padding: clamp(72px, 10vw, 140px) 20px clamp(96px, 12vw, 170px);
       overflow:hidden;
       background: transparent;
+    }
+    /* Quienes somos - Imagen*/
+    .about::before{
+      content:"";
+      position:absolute; inset:0; z-index:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.50) 0%, rgba(255,255,255,.50) 55%, rgba(255,255,255,.80) 100%),
+        url("img/quienessomoshome2.jpg") center 40% / cover no-repeat;
+      filter: grayscale(.06) contrast(1.02);
     }
     .about .container{
       position:relative; z-index:2;
@@ -186,7 +195,7 @@
       gap:clamp(12px,1.4vw,20px);
       text-align:center; margin:0 auto;
     }
-    /* Fondo tipeado centrado */
+    /* Fondo tipeado */
     .type-bg{ position:absolute; inset:0; z-index:1; pointer-events:none; user-select:none; overflow:hidden; }
     .type-screen{
       position:absolute; inset:0; padding: clamp(28px,6vw,64px) 20px;
@@ -231,7 +240,6 @@
       background: #fff;
     }
     .newsletter .container{ max-width: 840px; text-align:center; }
-    /* >>> NUEVO: mismo tamaño que ¿Quiénes somos? (y mismo glow) <<< */
     .newsletter .mag-title{
       font-size: clamp(34px, 5vw, 72px);
       margin-bottom: clamp(6px, 1.4vw, 12px);
@@ -250,7 +258,7 @@
       white-space:nowrap; border:0; padding:0; margin:-1px;
     }
 
-    /* ===== CONTACTANOS ===== */
+    /* Contacto */
     .contact{ padding: clamp(40px, 7vw, 88px) 20px; background:#fafafa; }
     .contact .container{ max-width:960px }
     .contact-card{
@@ -265,7 +273,7 @@
     .contact-card p{ margin:0; color:#333; font-size: clamp(14px,1.2vw,16px) }
     .contact-actions{ display:flex; gap:12px; align-items:center }
 
-    /* ===== Cierre (más bajo + links rojos y tamaño del menú) ===== */
+    /* Cierre */
     .closing-banner{
       position: relative; min-height: clamp(360px, 60vh, 720px);
       background: var(--black); color: #fff; border-radius: 0; margin: 0;
@@ -298,10 +306,10 @@
       <div class="spacer"></div>
       <div class="menu" role="menubar">
         <a role="menuitem" href="index.html" aria-current="page" data-transition>Home</a>
-        <a role="menuitem" href="#ediciones">Ediciones</a>
-        <a role="menuitem" href="#quienes-somos">¿Quiénes somos?</a>
+        <a role="menuitem" href="ediciones.html">Ediciones</a>
+        <a role="menuitem" href="sobre-nosotros.html">¿Quiénes somos?</a>
         <a role="menuitem" href="audiovisual.html" data-transition>Audiovisual</a>
-        <a role="menuitem" href="#newsletter">Newsletter</a>
+        <a role="menuitem" href="newsletter.html">Newsletter</a>
         <a role="menuitem" href="contacto.html" data-transition>Contacto</a>
       </div>
     </nav>
@@ -319,7 +327,7 @@
     </div>
   </section>
 
-  <!-- ===== EDICIÓN ACTUAL ===== -->
+  <!--  Edicion actual -->
   <section class="mag-container" id="ediciones">
     <h2 class="mag-title reveal"><strong>Edición actual · Septiembre 2025</strong></h2>
 
@@ -327,8 +335,8 @@
       <button class="ed-arrow ed-prev" aria-label="Nota anterior">‹</button>
 
       <div class="ed-strip" id="edStrip" tabindex="0">
-        <!-- 6 TARJETAS -->
-        <a class="ed-card" href="#">
+        <!-- Tarjetas -->
+        <a class="ed-card" href="nota-cultura.html">
           <figure class="ed-media"><img src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?q=80&w=1600&auto=format&fit=crop" alt=""></figure>
           <div class="ed-meta"><span class="ed-dot"></span> Cultura</div>
           <h4 class="ed-title">Miradas sobre el archivo</h4>
@@ -364,7 +372,7 @@
     </div>
   </section>
 
-  <!-- ===== ¿QUIÉNES SOMOS? ===== -->
+  <!--¿Quienes somos? -->
   <section class="about" id="quienes-somos" aria-label="¿Quiénes somos?">
     <div class="type-bg" aria-hidden="true">
       <div class="type-screen" id="typewriter"></div>
@@ -376,7 +384,7 @@
     </div>
   </section>
 
-  <!-- ===== NEWSLETTER ===== -->
+  <!--  Newsletter -->
   <section class="newsletter" id="newsletter" aria-labelledby="nlTitle">
     <div class="container">
       <h2 id="nlTitle" class="mag-title"><strong>Newsletter</strong></h2>
@@ -390,7 +398,7 @@
     </div>
   </section>
 
-  <!-- ===== CONTACTANOS ===== -->
+  <!-- Contactanos -->
   <section class="contact" id="contacto-home" aria-labelledby="ctTitle">
     <div class="container">
       <div class="contact-card">
@@ -405,7 +413,7 @@
     </div>
   </section>
 
-  <!-- ===== CIERRE ===== -->
+  <!-- Cierre -->
   <section class="closing-banner" aria-label="Cierre del sitio">
     <nav class="cb-corner cb-top-left" aria-label="Links informativos">
       <a href="#">Contribuidores</a>
@@ -430,7 +438,7 @@
       <a href="contacto.html" data-transition>Contacto</a>
     </nav>
 
-    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <img class="closing-logo" src="img/Logo.png" alt="La Tuerta">
     <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
   </section>
 
@@ -441,18 +449,16 @@
     // Fade-in
     window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
 
-    // Header sticky
+    // Header
     const header = document.getElementById('siteHeader');
     const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
     onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
 
     // Reveal
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }});
-    }, {threshold:.12});
+    const io = new IntersectionObserver((entries)=>entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }}), {threshold:.12});
     document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay = (80*i)+'ms'; io.observe(el); });
 
-    // Carrusel por tarjeta
+    // Carrusel
     const strip = document.getElementById('edStrip');
     const cards = [...strip.querySelectorAll('.ed-card')];
     const prev = document.querySelector('.ed-prev');
@@ -480,7 +486,7 @@
     window.addEventListener('resize', ()=>{ const old = step; step = measureStep(); if (old && step) strip.scrollLeft = idx * step; });
     step = measureStep(); updateUI();
 
-    // Fondo tipeado (¿Quiénes somos?) con saltos 10/9 palabras
+    // Fondo tipeado "¿Quiénes somos?"
     const typeTarget = document.getElementById('typewriter');
     const RAW_TEXT = `Somos una revista independiente con edición cuidada. Publicamos crónicas, entrevistas y ensayos visuales con una mirada curatorial. Acompañamos procesos, trabajamos con autorxs y nos tomamos el tiempo para contar mejor.`;
 
@@ -519,7 +525,7 @@
     }, {threshold:.2});
     aboutObs.observe(document.getElementById('quienes-somos'));
 
-    // Newsletter demo (validación simple)
+    // Newsletter
     const nlForm = document.getElementById('newsletterForm');
     const nlEmail = document.getElementById('nlEmail');
     const nlMsg = document.getElementById('nlMsg');

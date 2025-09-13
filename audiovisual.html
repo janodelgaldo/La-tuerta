@@ -37,7 +37,7 @@
 
     img{max-width:100%; display:block}
 
-    /* ===== HEADER (igual Home) ===== */
+    /* Header */
     .site-header{
       position:fixed; inset:0 0 auto 0; z-index:20;
       background:rgba(255,255,255,0); color:var(--accent);
@@ -66,7 +66,7 @@
     .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
     .menu a[aria-current="page"]::after{ transform:scaleX(1) }
 
-    /* ===== HERO (tamaño igual Home) + texto tipeado de fondo ===== */
+    /* HERO */
     .av-hero{
       min-height: clamp(360px, 64svh, 720px); /* igual Home */
       position:relative; display:grid; place-items:center; text-align:center;
@@ -84,7 +84,7 @@
       text-shadow:0 14px 44px rgba(0,0,0,.50);
     }
 
-    /* capa de texto “Próximamente” tipeado detrás */
+    /* Proximamente */
     .type-bg{ position:absolute; inset:0; z-index:1; pointer-events:none; user-select:none; overflow:hidden; display:grid; place-items:center; }
     .type-screen{
       max-width:min(1100px, 92vw);
@@ -104,11 +104,11 @@
     }
     @keyframes blink{ 50%{ opacity:0 } }
 
-    /* ===== Secciones base ===== */
+    /*Secciones*/
     .section{ padding: clamp(28px, 6vw, 64px) 20px; }
     .container{ max-width:var(--container); margin:0 auto }
 
-    /* Cierre (igual Home) */
+    /* Cierre */
     .closing-banner{
       position: relative; min-height: clamp(360px, 60vh, 720px);
       background: var(--black); color: #fff; border-radius: 0; margin: 0;
@@ -141,13 +141,13 @@
         <a role="menuitem" href="ediciones.html" data-transition>Ediciones</a>
         <a role="menuitem" href="sobre-nosotros.html" data-transition>¿Quiénes somos?</a>
         <a role="menuitem" href="audiovisual.html" aria-current="page">Audiovisual</a>
-        <a role="menuitem" href="index.html#newsletter" data-transition>Newsletter</a>
+        <a role="menuitem" href="newsletter.html" data-transition>Newsletter</a>
         <a role="menuitem" href="contacto.html" data-transition>Contacto</a>
       </div>
     </nav>
   </header>
 
-  <!-- HERO Audiovisual -->
+  <!-- Hero -->
   <section class="av-hero" aria-label="Audiovisuales" id="hero">
     <div class="type-bg" aria-hidden="true">
       <div class="type-screen" id="heroType"></div>
@@ -155,7 +155,7 @@
     <h1>Audiovisuales</h1>
   </section>
 
-  <!-- (opcional) sección mínima por ahora -->
+
   <section class="section" aria-label="Estado">
     <div class="container" style="text-align:center; max-width:900px">
       <p style="margin:0; color:#333; font-size:clamp(16px,1.4vw,18px)">
@@ -190,7 +190,7 @@
       <a href="contacto.html" data-transition>Contacto</a>
     </nav>
 
-    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <img class="closing-logo" src="img/Logo.png" alt="La Tuerta">
     <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
   </section>
 
@@ -201,12 +201,12 @@
     // Fade-in
     window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
 
-    // Header sticky
+    // Header
     const header = document.getElementById('siteHeader');
     const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
     onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
 
-    // Transición entre páginas
+    // Transición
     document.addEventListener('click', (e)=>{
       const a = e.target.closest('a[data-transition]');
       if(!a) return;
@@ -217,13 +217,13 @@
       setTimeout(()=>{ window.location.href = url; }, 220);
     });
 
-    // ===== Texto de fondo tipeado (PRÓXIMAMENTE) en el HERO =====
+    // Texto de fondo tipeado Proximamente
     const heroTypeTarget = document.getElementById('heroType');
 
-    // Genera muchas repeticiones de "Próximamente" y las corta en líneas para llenar el fondo
+    // Generador de proximamente
     function buildSoonText(reps = 60){
       const words = Array(reps).fill('Próximamente');
-      // armo líneas alternando 8/9 palabras para que quede "textura"
+      // alternando 8/9 palabras
       let out = [], i = 0, chunk = 8;
       while(i < words.length){
         out.push(words.slice(i, i+chunk).join(' '));

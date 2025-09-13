@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>La Tuerta — Bienvenidos</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --white:#FFFFFF; --black:#0D0D0D; --gris:#D0D0D0; --rojo:#CD0613;
+      --accent: var(--rojo);
+
+      --h-sans:"Inter Tight",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
+      --body-serif:"Merriweather",Georgia,"Times New Roman",serif;
+
+      --speed:260ms;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:#000; color:#fff;
+      font-family:var(--body-serif); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      opacity:0; transition:opacity var(--speed) ease;
+    }
+    body.is-ready{ opacity:1 }
+
+    /* ===== Landing ===== */
+    .landing{
+      min-height:100svh; position:relative;
+      display:grid; place-items:center; overflow:hidden;
+      background:
+        radial-gradient(140% 100% at 10% 0%, rgba(205,6,19,.16), transparent 60%),
+        #000;
+    }
+    /* sutil textura/grain opcional */
+    .grain{
+      position:absolute; inset:-20px; pointer-events:none; opacity:.12; mix-blend-mode:screen;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      transform:scale(1.2);
+    }
+
+    .wrap{ position:relative; text-align:center; padding: 40px 20px }
+    .logo{
+      /* ⬇️ tamaño intermedio (un poco más grande que antes) */
+      width: clamp(280px, 54vw, 820px);
+      margin: 0 auto 28px;
+      filter: drop-shadow(0 18px 60px rgba(205,6,19,.35));
+      animation: float 5s ease-in-out infinite;
+    }
+    .logo img{ width:100%; height:auto; display:block; }
+
+    @keyframes float{
+      0%,100%{ transform: translateY(0) }
+      50%{ transform: translateY(-6px) }
+    }
+
+    .btn{
+      --btn-bg:var(--accent); --btn-fg:#fff; --btn-bd:var(--accent);
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:14px 22px; border-radius:999px; border:2px solid var(--btn-bd);
+      font-family:var(--h-sans); font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:13px;
+      color:var(--btn-fg); background:var(--btn-bg); text-decoration:none;
+      box-shadow:0 20px 48px rgba(205,6,19,.28);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease, background .18s ease;
+    }
+    .btn:hover{ transform:translateY(-2px); box-shadow:0 26px 60px rgba(205,6,19,.34); filter:saturate(1.05) }
+
+    .hint{
+      position:absolute; left:50%; bottom:22px; transform:translateX(-50%);
+      font:900 10px var(--h-sans); letter-spacing:.24em; text-transform:uppercase; opacity:.6; color:#fff
+    }
+
+    /* marquitas laterales opcionales (estilo detalle) */
+    .ticks::before, .ticks::after{
+      content:""; position:absolute; bottom:110px; width:36px; height:2px; background:rgba(255,255,255,.4)
+    }
+    .ticks::before{ left:8% } .ticks::after{ right:8% }
+
+    /* Fade-out al navegar */
+    .leaving{ opacity:0 }
+  </style>
+</head>
+<body>
+  <main class="landing" aria-label="Presentación">
+    <div class="grain"></div>
+
+    <div class="wrap ticks">
+      <!-- Cambiá la ruta del logo por tu versión en rojo -->
+      <div class="logo" aria-label="La Tuerta">
+        <img src="img/Logo.png" alt="La Tuerta">
+      </div>
+
+      <a class="btn" href="index.html" data-transition>Ingresar</a>
+    </div>
+
+    <div class="hint">Presioná Enter</div>
+  </main>
+
+  <script>
+    // Fade-in
+    window.addEventListener('DOMContentLoaded', ()=> document.body.classList.add('is-ready'));
+
+    // Fade-out suave al ir a Home
+    document.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[data-transition]');
+      if(!a) return;
+      const url = a.getAttribute('href');
+      if(!url || url.startsWith('#')) return;
+      e.preventDefault();
+      document.body.classList.add('leaving');
+      setTimeout(()=>{ window.location.href = url; }, 200);
+    });
+
+    // Atajo: Enter para ingresar
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        const a = document.querySelector('a[data-transition]');
+        if(a){ a.click(); }
+      }
+    });
+  </script>
+</body>
+</html>

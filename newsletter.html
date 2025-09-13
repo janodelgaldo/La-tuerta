@@ -36,7 +36,7 @@
 
     img{max-width:100%; display:block}
 
-    /* ===== HEADER (igual sitio) ===== */
+    /* Header */
     .site-header{
       position:fixed; inset:0 0 auto 0; z-index:20;
       background:rgba(255,255,255,0); color:var(--accent);
@@ -64,14 +64,14 @@
     .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
     .menu a[aria-current="page"]::after{ transform:scaleX(1) }
 
-    /* ===== HERO (grande como la home) ===== */
+    /* Hero */
     .hero{
       min-height: clamp(520px, 82svh, 920px);
       position:relative; display:grid; place-items:center; text-align:center; color:var(--accent);
       padding: clamp(36px, 8vw, 80px) 20px;
       overflow:hidden;
     }
-    /* Fondo con overlay + imagen (solo subí img/newsletter-hero.jpg) */
+    /* Fondo con overlay con imagen */
     .hero::before{
       content:""; position:absolute; inset:0; z-index:-1;
       background:
@@ -85,18 +85,17 @@
       text-shadow:0 14px 44px rgba(0,0,0,.50);
     }
 
-    /* ===== Contenedores ===== */
+    /*  Contenedores */
     .section{ padding: clamp(28px, 6vw, 64px) 20px; }
     .container{ max-width:var(--container); margin:0 auto }
 
-    /* Foto debajo de la hero (opcional) */
     .nl-photo{
       max-width: min(1200px, 94vw); margin: -40px auto 0;
       border-radius: 24px; overflow:hidden; box-shadow: 0 26px 60px rgba(0,0,0,.18);
     }
     .nl-photo img{ width:100%; height:auto; display:block; }
 
-    /* Descripción + Form */
+    /* Descripcion y formulario */
     .split{
       max-width:min(1200px,94vw); margin: clamp(28px,6vw,60px) auto 0;
       display:grid; gap: clamp(18px,3vw,36px); grid-template-columns: 1.1fr .9fr; align-items:start;
@@ -139,7 +138,7 @@
     .btn:hover{ transform:translateY(-2px); box-shadow:0 22px 54px rgba(205,6,19,.28) }
     .ok{ display:none; margin-top:8px; font-weight:700; color:var(--accent) }
 
-    /* ===== CIERRE (igual home) ===== */
+    /* Cierre */
     .closing-banner{
       position: relative; min-height: clamp(360px, 60vh, 720px);
       background: var(--black); color: #fff; border-radius: 0; margin: 0;
@@ -177,12 +176,12 @@
     </nav>
   </header>
 
-  <!-- HERO -->
+  <!-- Hero -->
   <section class="hero" aria-label="Newsletter">
     <h1>Newsletter</h1>
   </section>
 
-  <!-- Descripción + Suscripción -->
+  <!-- Descripcion y suscripcion -->
   <section class="section">
     <div class="container split">
       <div>
@@ -212,7 +211,7 @@
     </div>
   </section>
 
-  <!-- CIERRE igual home -->
+  <!-- Cierre -->
   <section class="closing-banner" aria-label="Cierre del sitio">
     <nav class="cb-corner cb-top-left" aria-label="Links informativos">
       <a href="#" onclick="return false;">Contribuidores</a>
@@ -238,7 +237,7 @@
       <a href="contacto.html" data-transition>Contacto</a>
     </nav>
 
-    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <img class="closing-logo" src="img/Logo.png" alt="La Tuerta">
     <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
   </section>
 
@@ -249,7 +248,7 @@
     // Fade-in
     window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
 
-    // Header sticky
+    // Header 
     const header = document.getElementById('siteHeader');
     const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
     onScroll(); window.addEventListener('scroll', onScroll, { passive:true });

@@ -37,7 +37,7 @@
 
     img{max-width:100%; display:block}
 
-    /* ===== HEADER (igual Home) ===== */
+    /* Header */
     .site-header{
       position:fixed; inset:0 0 auto 0; z-index:20;
       background:rgba(255,255,255,0); color:var(--accent);
@@ -66,7 +66,7 @@
     .menu a:hover{ opacity:1 } .menu a:hover::after{ transform:scaleX(1) }
     .menu a[aria-current="page"]::after{ transform:scaleX(1) }
 
-    /* ===== HERO con imagen + texto tipeado de fondo ===== */
+    /* Hero con imagen y texto tipeado de fondo */
     .about-hero{
       min-height: clamp(420px, 62svh, 760px);
       position:relative; display:grid; place-items:center; text-align:center;
@@ -83,13 +83,13 @@
       text-shadow:0 14px 44px rgba(0,0,0,.50);
     }
 
-    /* Texto del manifiesto DETRÁS y CENTRADO con el título */
+    /* Texto del manifiesto */
     .type-bg{
       position:absolute; inset:0; z-index:1; pointer-events:none; user-select:none;
-      display:grid; place-items:center;   /* centra su contenido como el h1 */
+      display:grid; place-items:center;   /* centra su contenido con el h1 */
     }
     .type-screen{
-      position:relative;                   /* ya no usamos bottom/left */
+      position:relative;      
       max-width: min(1100px, 92vw);
       padding: 0 20px;
       text-align:center;
@@ -102,8 +102,8 @@
       color: rgba(255,255,255,.76);
       text-shadow: 0 10px 32px rgba(0,0,0,.35);
 
-      /* pequeño ajuste vertical para que “quede justo detrás” del h1 */
-      transform: translateY(6px);  /* subí o bajá este valor a gusto */
+      
+      transform: translateY(6px);
     }
     .type-screen::after{
       content:""; display:inline-block; width:2px; height:1em; background:rgba(255,255,255,.76);
@@ -111,11 +111,11 @@
     }
     @keyframes blink{ 50%{ opacity:0 } }
 
-    /* ===== Secciones base ===== */
+    /* Secciones */
     .section{ padding: clamp(28px, 6vw, 64px) 20px; }
     .container{ max-width:var(--container); margin:0 auto }
 
-    /* Manifiesto (como nota) */
+    /* Manifiesto */
     .manifesto{
       max-width: min(900px, 92vw); margin: 0 auto;
       font-size: clamp(17px, 1.65vw, 19px);
@@ -123,7 +123,7 @@
     }
     .manifesto p{ margin: 0 0 1.1em; }
 
-    /* Subtítulos estilo Home */
+    /* Subtítulos */
     .mag-title{
       font-family:var(--h-sans); text-transform:uppercase; letter-spacing:.08em;
       line-height:1; margin:0 0 16px; font-weight:900; color:var(--accent);
@@ -150,7 +150,7 @@
     .name{ margin:6px 0 6px; font-family:var(--h-sans); font-weight:900; font-size: clamp(18px,1.8vw,22px); color:var(--black) }
     .desc{ color:#333; font-size:15px; margin:0 }
 
-    /* Contactanos (home) */
+    /* Contactanos */
     .contact{ padding: clamp(40px, 7vw, 88px) 20px; background:#fafafa; }
     .contact .container{ max-width:960px }
     .contact-card{
@@ -175,7 +175,7 @@
     .btn-primary{ --btn-bg:var(--accent); --btn-fg:#fff; --btn-bd:var(--accent); background:var(--btn-bg); box-shadow:0 18px 40px rgba(205,6,19,.25) }
     .btn-primary:hover{ box-shadow:0 22px 54px rgba(205,6,19,.28) }
 
-    /* Closing (home) */
+    /* Home */
     .closing-banner{
       position: relative; min-height: clamp(360px, 60vh, 720px);
       background: var(--black); color: #fff; border-radius: 0; margin: 0;
@@ -208,13 +208,13 @@
         <a role="menuitem" href="ediciones.html" data-transition>Ediciones</a>
         <a role="menuitem" href="sobre-nosotros.html" aria-current="page">¿Quiénes somos?</a>
         <a role="menuitem" href="audiovisual.html" data-transition>Audiovisual</a>
-        <a role="menuitem" href="index.html#newsletter" data-transition>Newsletter</a>
+        <a role="menuitem" href="newsletter.html" data-transition>Newsletter</a>
         <a role="menuitem" href="contacto.html" data-transition>Contacto</a>
       </div>
     </nav>
   </header>
 
-  <!-- HERO con imagen y manifiesto tipeado -->
+  <!--Hero con manifiesto tipeado -->
   <section class="about-hero" aria-label="¿Qué es La Tuerta?" id="hero">
     <div class="type-bg" aria-hidden="true">
       <div class="type-screen" id="heroType"></div>
@@ -222,7 +222,7 @@
     <h1>¿Qué es La Tuerta?</h1>
   </section>
 
-  <!-- Manifiesto (nota) -->
+  <!-- Manifiesto -->
   <section class="section" id="manifiesto">
     <div class="container">
       <article class="manifesto" aria-label="Manifiesto">
@@ -316,7 +316,7 @@
       <a href="contacto.html" data-transition>Contacto</a>
     </nav>
 
-    <img class="closing-logo" src="assets/logo-tuerta.svg" alt="La Tuerta">
+    <img class="closing-logo" src="img/Logo.png" alt="La Tuerta">
     <div class="cb-copy">© <span id="y"></span> La Tuerta — Todos los derechos reservados.</div>
   </section>
 
@@ -327,12 +327,12 @@
     // Fade-in
     window.addEventListener('DOMContentLoaded', ()=>document.body.classList.add('is-ready'));
 
-    // Header sticky
+    // Header
     const header = document.getElementById('siteHeader');
     const onScroll = () => { if (window.scrollY > 12) header.classList.add('is-sticky'); else header.classList.remove('is-sticky'); };
     onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
 
-    // Transición entre páginas
+    // Transición 
     document.addEventListener('click', (e)=>{
       const a = e.target.closest('a[data-transition]');
       if(!a) return;
@@ -343,7 +343,7 @@
       setTimeout(()=>{ window.location.href = url; }, 220);
     });
 
-    // ===== Texto de fondo tipeado (manifiesto) en el HERO =====
+    // Fondo tipeado (manifiesto
     const heroTypeTarget = document.getElementById('heroType');
     const RAW_TEXT = `La Tuerta es una revista argentina, de tirada mensual, abocada al mundo del arte y la cultura de nuestro suelo. Nuestras palabras buscan abrazar los debates políticos y sociales para digerirlos y cuestionarlos a través de la música, los libros, el teatro, las pinturas, el cine, los símbolos...`;
 
